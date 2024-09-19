@@ -28,21 +28,11 @@ class PathPainter extends CustomPainter {
   }
 
   Color _getSectionColor(SeatSection section) {
-    if (colors.containsKey(section.id)) {
-      return colors[section.id]!;
-    }
-
-    if (section.id.contains('text')) {
-      return Colors.black;
-    }
-
-    return defaultColor;
+    return colors[section.id] ?? defaultColor;
   }
 
   @override
   bool shouldRepaint(covariant PathPainter oldDelegate) {
-    return oldDelegate.colors != colors ||
-        oldDelegate.sections != sections ||
-        oldDelegate.scale != scale;
+    return oldDelegate.colors != colors;
   }
 }

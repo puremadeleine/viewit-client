@@ -29,8 +29,8 @@ class _SeatMapState extends State<SeatMap> {
       TransformationController();
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _loadPathsFromSVG();
   }
 
@@ -55,6 +55,7 @@ class _SeatMapState extends State<SeatMap> {
       sections = document.findAllElements('path').map((element) {
         final path = element.getAttribute('d') ?? '';
         final id = element.getAttribute('id') ?? '';
+        _setColor(id);
         return SeatSection(id, _getPath(path));
       }).toList();
     });
@@ -64,6 +65,10 @@ class _SeatMapState extends State<SeatMap> {
     final Path path = Path();
     writeSvgPathDataToPath(svgPath, PathPrinter(path));
     return path;
+  }
+
+  void _setColor(String id) {
+    colors[id] = id.contains('text') ? defaultTextColor : defaultColor;
   }
 
   @override
@@ -76,7 +81,9 @@ class _SeatMapState extends State<SeatMap> {
         final scaleX = parentWidth / _svgWidth;
         final scaleY = parentHeight / _svgHeight;
         final scale = (scaleX < scaleY) ? scaleX : scaleY;
+
         return GestureDetector(
+          key: const ValueKey('seatMapGestureDetector'),
           onTapDown: (details) {
             final RenderBox box = context.findRenderObject() as RenderBox;
             final localPosition = box.globalToLocal(details.globalPosition);
@@ -88,6 +95,7 @@ class _SeatMapState extends State<SeatMap> {
             maxScale: 3,
             transformationController: _transformationController,
             child: CustomPaint(
+              key: const ValueKey('seatMapCustomPaint'),
               painter: PathPainter(
                 sections: sections,
                 colors: colors,
