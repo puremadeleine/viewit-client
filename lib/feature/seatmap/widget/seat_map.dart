@@ -1,22 +1,34 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:path_parsing/path_parsing.dart';
 import 'package:viewith/feature/seatmap/widget/painter/path_painter.dart';
+import 'package:viewith/feature/seatmap/widget/painter/path_printer.dart';
+import 'package:viewith/feature/seatmap/widget/painter/stage_painter.dart';
 import 'package:xml/xml.dart' as xml;
+import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
 
 class SeatMap extends StatefulWidget {
-  final String assetName;
+  final String seatmapName;
+  final String? stageName;
   final Function(String) onSectionSelected;
 
-  const SeatMap({super.key, required this.assetName, required this.onSectionSelected});
+  const SeatMap(
+      {super.key,
+      required this.seatmapName,
+      this.stageName,
+      required this.onSectionSelected});
 
   @override
   State<SeatMap> createState() => _SeatMapState();
 }
 
 class _SeatMapState extends State<SeatMap> {
-  List<SeatSection> sections = [];
+  List<Section> sections = [];
+  List<Section> stages = [];
   Map<String, Color> colors = {};
   double _svgWidth = 0;
   double _svgHeight = 0;
@@ -31,7 +43,9 @@ class _SeatMapState extends State<SeatMap> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadPathsFromSVG();
+    _loadSeatMap();
+    _loadStages();
+    print('test ${stages.length}');
   }
 
   @override
@@ -40,9 +54,9 @@ class _SeatMapState extends State<SeatMap> {
     super.dispose();
   }
 
-  Future<void> _loadPathsFromSVG() async {
+  Future<XmlDocument> _loadSvg(String name) async {
     final String svgString =
-        await DefaultAssetBundle.of(context).loadString(widget.assetName);
+        await DefaultAssetBundle.of(context).loadString(name);
     final document = xml.XmlDocument.parse(svgString);
 
     final svgElement = document.findAllElements('svg').first;
@@ -51,12 +65,39 @@ class _SeatMapState extends State<SeatMap> {
     _svgHeight =
         double.tryParse(svgElement.getAttribute('height') ?? '') ?? 100.0;
 
+    return document;
+  }
+
+  Future<void> _loadSeatMap() async {
+    final document = await _loadSvg(widget.seatmapName);
+
     setState(() {
-      sections = document.findAllElements('path').map((element) {
+      sections = [
+        ...document.findAllElements('rect').map((element) {
+          final id = element.getAttribute('id') ?? '';
+          _setColor(id);
+          return Section(id, _getRectPath(element));
+        }),
+        ...document.findAllElements('path').map((element) {
+          final path = element.getAttribute('d') ?? '';
+          final id = element.getAttribute('id') ?? '';
+          _setColor(id);
+          return Section(id, _getPath(path));
+        }),
+      ];
+    });
+  }
+
+  Future<void> _loadStages() async {
+    final stageName = widget.stageName;
+    if (stageName == null) return;
+    final document = await _loadSvg(stageName);
+
+    setState(() {
+      stages = document.findAllElements('path').map((element) {
         final path = element.getAttribute('d') ?? '';
         final id = element.getAttribute('id') ?? '';
-        _setColor(id);
-        return SeatSection(id, _getPath(path));
+        return Section(id, _getPath(path));
       }).toList();
     });
   }
@@ -67,8 +108,28 @@ class _SeatMapState extends State<SeatMap> {
     return path;
   }
 
+  Path _getRectPath(xml.XmlElement element) {
+    final x = double.tryParse(element.getAttribute('x') ?? '') ?? 0.0;
+    final y = double.tryParse(element.getAttribute('y') ?? '') ?? 0.0;
+    final width = double.tryParse(element.getAttribute('width') ?? '') ?? 0.0;
+    final height = double.tryParse(element.getAttribute('height') ?? '') ?? 0.0;
+    final rx = double.tryParse(element.getAttribute('rx') ?? '') ?? 0.0;
+
+    final path = Path();
+    if (rx > 0) {
+      // Rounded rectangle
+      path.addRRect(
+          RRect.fromRectXY(Rect.fromLTWH(x, y, width, height), rx, rx));
+    } else {
+      // Regular rectangle
+      path.addRect(Rect.fromLTWH(x, y, width, height));
+    }
+
+    return path;
+  }
+
   void _setColor(String id) {
-    colors[id] = id.contains('text') ? defaultTextColor : defaultColor;
+    colors[id] = id.contains('TEXT') ? defaultTextColor : defaultColor;
   }
 
   @override
@@ -94,15 +155,35 @@ class _SeatMapState extends State<SeatMap> {
           child: InteractiveViewer(
             maxScale: 3,
             transformationController: _transformationController,
-            child: CustomPaint(
-              key: const ValueKey('seatMapCustomPaint'),
-              painter: PathPainter(
-                sections: sections,
-                colors: colors,
-                defaultColor: defaultColor,
-                scale: scale,
-              ),
-              size: Size(parentWidth, parentHeight),
+            child: Stack(
+              children: [
+                CustomPaint(
+                  key: const ValueKey('seatMapCustomPaint'),
+                  painter: PathPainter(
+                    sections: sections,
+                    colors: colors,
+                    defaultColor: defaultColor,
+                    scale: scale,
+                  ),
+                  size: Size(parentWidth, parentHeight),
+                ),
+                // CustomPaint(
+                //   painter: PathPainter(
+                //     sections: stages,
+                //     colors: colors,
+                //     defaultColor: defaultColor,
+                //     scale: scale,
+                //   ),
+                //   size: Size(parentWidth, parentHeight),
+                // ),
+                CustomPaint(
+                  painter: StagePainter(
+                    sections: stages,
+                    defaultColor: defaultColor,
+                    scale: scale,
+                  ),
+                )
+              ],
             ),
           ),
         );
@@ -127,35 +208,9 @@ class _SeatMapState extends State<SeatMap> {
   void _changeColor(String id) {
     setState(() {
       colors[id] = (colors[id] == selectedColor) ? defaultColor : selectedColor;
-      colors['$id text'] = (colors['$id text'] == selectedTextColor)
+      colors['$id TEXT'] = (colors['$id TEXT'] == selectedTextColor)
           ? defaultTextColor
           : selectedTextColor;
     });
-  }
-}
-
-class PathPrinter extends PathProxy {
-  final Path path;
-
-  PathPrinter(this.path);
-
-  @override
-  void moveTo(double x, double y) {
-    path.moveTo(x, y);
-  }
-
-  @override
-  void lineTo(double x, double y) {
-    path.lineTo(x, y);
-  }
-
-  @override
-  void cubicTo(double x1, double y1, double x2, double y2, double x3, double y3) {
-    path.cubicTo(x1, y1, x2, y2, x3, y3);
-  }
-
-  @override
-  void close() {
-    path.close();
   }
 }
