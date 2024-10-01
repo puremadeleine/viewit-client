@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../model/seat_section.dart';
 
-class PathPainter extends CustomPainter {
+class StagePainter extends CustomPainter {
   final List<Section> sections;
-  final Map<String, Color> colors;
   final Color defaultColor;
   final double scale;
 
-  PathPainter({
+  StagePainter({
     required this.sections,
-    required this.colors,
     required this.defaultColor,
     required this.scale,
   });
@@ -20,19 +18,15 @@ class PathPainter extends CustomPainter {
 
     for (final section in sections) {
       final paint = Paint()
-        ..color = _getSectionColor(section)
+        ..color = Colors.black
         ..style = PaintingStyle.fill;
 
       canvas.drawPath(section.path, paint);
     }
   }
 
-  Color _getSectionColor(Section section) {
-    return colors[section.id] ?? defaultColor;
-  }
-
   @override
-  bool shouldRepaint(covariant PathPainter oldDelegate) {
-    return oldDelegate.colors != colors;
+  bool shouldRepaint(covariant StagePainter oldDelegate) {
+    return true;
   }
 }

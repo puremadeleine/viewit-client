@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-class SeatSection {
+class Section {
   final String id;
   final Path path;
 
-  SeatSection(this.id, this.path);
+  Section(this.id, this.path);
 }
