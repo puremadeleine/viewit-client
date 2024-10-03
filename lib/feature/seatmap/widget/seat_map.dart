@@ -16,11 +16,12 @@ class SeatMap extends StatefulWidget {
   final String? stageName;
   final Function(String) onSectionSelected;
 
-  const SeatMap(
-      {super.key,
-      required this.seatmapName,
-      this.stageName,
-      required this.onSectionSelected});
+  const SeatMap({
+    super.key,
+    required this.seatmapName,
+    this.stageName,
+    required this.onSectionSelected,
+  });
 
   @override
   State<SeatMap> createState() => _SeatMapState();
@@ -37,8 +38,7 @@ class _SeatMapState extends State<SeatMap> {
   final Color defaultTextColor = VIColors.gray900;
   final Color selectedTextColor = VIColors.gray50;
 
-  final TransformationController _transformationController =
-      TransformationController();
+  final TransformationController _transformationController = TransformationController();
 
   @override
   void didChangeDependencies() {
@@ -54,8 +54,7 @@ class _SeatMapState extends State<SeatMap> {
   }
 
   Future<XmlDocument> _loadSvg(String name) async {
-    final String svgString =
-        await DefaultAssetBundle.of(context).loadString(name);
+    final String svgString = await DefaultAssetBundle.of(context).loadString(name);
     final document = XmlDocument.parse(svgString);
 
     final svgElement = document.findAllElements(Strings.svg).first;
