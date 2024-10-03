@@ -32,7 +32,7 @@ void main() {
         home: DefaultAssetBundle(
           bundle: mockAssetBundle,
           child: SeatMap(
-            assetName: 'assets/seat_map.svg',
+            seatmapName: 'assets/seat_map.svg',
             onSectionSelected: mockCallback,
           ),
         ),
@@ -59,7 +59,7 @@ void main() {
           bundle: mockAssetBundle,
           child: SeatMap(
             key: const ValueKey('seatMap'),
-            assetName: 'assets/seat_map.svg',
+            seatmapName: 'assets/seat_map.svg',
             onSectionSelected: mockCallback,
           ),
         ),
