@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viewith/resource/constant.dart';
 import '../../model/seat_section.dart';
 
 class StagePainter extends CustomPainter {
@@ -18,7 +19,7 @@ class StagePainter extends CustomPainter {
 
     for (final section in sections) {
       final paint = Paint()
-        ..color = Colors.black
+        ..color = section.id.contains(Strings.textSuffix) ? Colors.white : Colors.black.withOpacity(0.5)
         ..style = PaintingStyle.fill;
 
       canvas.drawPath(section.path, paint);

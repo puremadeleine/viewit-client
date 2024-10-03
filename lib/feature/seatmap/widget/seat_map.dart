@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:path_parsing/path_parsing.dart';
 import 'package:viewith/feature/seatmap/widget/painter/path_painter.dart';
 import 'package:viewith/feature/seatmap/widget/painter/path_printer.dart';
 import 'package:viewith/feature/seatmap/widget/painter/stage_painter.dart';
-import 'package:xml/xml.dart' as xml;
+import 'package:viewith/resource/constant.dart';
+import 'package:viewith/ui/colors.dart';
 import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
@@ -32,10 +32,10 @@ class _SeatMapState extends State<SeatMap> {
   Map<String, Color> colors = {};
   double _svgWidth = 0;
   double _svgHeight = 0;
-  final Color defaultColor = const Color(0xFFD9D9D9);
-  final Color selectedColor = Colors.black;
-  final Color defaultTextColor = Colors.black;
-  final Color selectedTextColor = Colors.white;
+  final Color defaultColor = VIColors.gray100;
+  final Color selectedColor = VIColors.gray900;
+  final Color defaultTextColor = VIColors.gray900;
+  final Color selectedTextColor = VIColors.gray50;
 
   final TransformationController _transformationController =
       TransformationController();
@@ -45,7 +45,6 @@ class _SeatMapState extends State<SeatMap> {
     super.didChangeDependencies();
     _loadSeatMap();
     _loadStages();
-    print('test ${stages.length}');
   }
 
   @override
@@ -57,13 +56,11 @@ class _SeatMapState extends State<SeatMap> {
   Future<XmlDocument> _loadSvg(String name) async {
     final String svgString =
         await DefaultAssetBundle.of(context).loadString(name);
-    final document = xml.XmlDocument.parse(svgString);
+    final document = XmlDocument.parse(svgString);
 
-    final svgElement = document.findAllElements('svg').first;
-    _svgWidth =
-        double.tryParse(svgElement.getAttribute('width') ?? '') ?? 100.0;
-    _svgHeight =
-        double.tryParse(svgElement.getAttribute('height') ?? '') ?? 100.0;
+    final svgElement = document.findAllElements(Strings.svg).first;
+    _svgWidth = double.tryParse(svgElement.getAttribute(Strings.width) ?? '') ?? 100.0;
+    _svgHeight = double.tryParse(svgElement.getAttribute(Strings.height) ?? '') ?? 100.0;
 
     return document;
   }
@@ -73,14 +70,14 @@ class _SeatMapState extends State<SeatMap> {
 
     setState(() {
       sections = [
-        ...document.findAllElements('rect').map((element) {
-          final id = element.getAttribute('id') ?? '';
+        ...document.findAllElements(Strings.rect).map((element) {
+          final id = element.getAttribute(Strings.id) ?? '';
           _setColor(id);
           return Section(id, _getRectPath(element));
         }),
-        ...document.findAllElements('path').map((element) {
-          final path = element.getAttribute('d') ?? '';
-          final id = element.getAttribute('id') ?? '';
+        ...document.findAllElements(Strings.path).map((element) {
+          final path = element.getAttribute(Strings.pathData) ?? '';
+          final id = element.getAttribute(Strings.id) ?? '';
           _setColor(id);
           return Section(id, _getPath(path));
         }),
@@ -94,9 +91,9 @@ class _SeatMapState extends State<SeatMap> {
     final document = await _loadSvg(stageName);
 
     setState(() {
-      stages = document.findAllElements('path').map((element) {
-        final path = element.getAttribute('d') ?? '';
-        final id = element.getAttribute('id') ?? '';
+      stages = document.findAllElements(Strings.path).map((element) {
+        final path = element.getAttribute(Strings.pathData) ?? '';
+        final id = element.getAttribute(Strings.id) ?? '';
         return Section(id, _getPath(path));
       }).toList();
     });
@@ -108,20 +105,17 @@ class _SeatMapState extends State<SeatMap> {
     return path;
   }
 
-  Path _getRectPath(xml.XmlElement element) {
-    final x = double.tryParse(element.getAttribute('x') ?? '') ?? 0.0;
-    final y = double.tryParse(element.getAttribute('y') ?? '') ?? 0.0;
-    final width = double.tryParse(element.getAttribute('width') ?? '') ?? 0.0;
-    final height = double.tryParse(element.getAttribute('height') ?? '') ?? 0.0;
-    final rx = double.tryParse(element.getAttribute('rx') ?? '') ?? 0.0;
+  Path _getRectPath(XmlElement element) {
+    final x = double.tryParse(element.getAttribute(Strings.x) ?? '') ?? 0.0;
+    final y = double.tryParse(element.getAttribute(Strings.y) ?? '') ?? 0.0;
+    final width = double.tryParse(element.getAttribute(Strings.width) ?? '') ?? 0.0;
+    final height = double.tryParse(element.getAttribute(Strings.height) ?? '') ?? 0.0;
+    final rx = double.tryParse(element.getAttribute(Strings.roundedX) ?? '') ?? 0.0;
 
     final path = Path();
     if (rx > 0) {
-      // Rounded rectangle
-      path.addRRect(
-          RRect.fromRectXY(Rect.fromLTWH(x, y, width, height), rx, rx));
+      path.addRRect(RRect.fromRectXY(Rect.fromLTWH(x, y, width, height), rx, rx));
     } else {
-      // Regular rectangle
       path.addRect(Rect.fromLTWH(x, y, width, height));
     }
 
@@ -129,7 +123,7 @@ class _SeatMapState extends State<SeatMap> {
   }
 
   void _setColor(String id) {
-    colors[id] = id.contains('TEXT') ? defaultTextColor : defaultColor;
+    colors[id] = id.contains(Strings.textSuffix) ? defaultTextColor : defaultColor;
   }
 
   @override
@@ -148,8 +142,7 @@ class _SeatMapState extends State<SeatMap> {
           onTapDown: (details) {
             final RenderBox box = context.findRenderObject() as RenderBox;
             final localPosition = box.globalToLocal(details.globalPosition);
-            final transformedPosition =
-                _transformationController.toScene(localPosition);
+            final transformedPosition = _transformationController.toScene(localPosition);
             _onSectionTap(transformedPosition, scale);
           },
           child: InteractiveViewer(
@@ -167,15 +160,6 @@ class _SeatMapState extends State<SeatMap> {
                   ),
                   size: Size(parentWidth, parentHeight),
                 ),
-                // CustomPaint(
-                //   painter: PathPainter(
-                //     sections: stages,
-                //     colors: colors,
-                //     defaultColor: defaultColor,
-                //     scale: scale,
-                //   ),
-                //   size: Size(parentWidth, parentHeight),
-                // ),
                 CustomPaint(
                   painter: StagePainter(
                     sections: stages,
@@ -208,9 +192,8 @@ class _SeatMapState extends State<SeatMap> {
   void _changeColor(String id) {
     setState(() {
       colors[id] = (colors[id] == selectedColor) ? defaultColor : selectedColor;
-      colors['$id TEXT'] = (colors['$id TEXT'] == selectedTextColor)
-          ? defaultTextColor
-          : selectedTextColor;
+      final textId = id + Strings.textSuffix;
+      colors[textId] = (colors[textId] == selectedTextColor) ? defaultTextColor : selectedTextColor;
     });
   }
 }
