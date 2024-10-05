@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../model/seat_section.dart';
 
 class PathPainter extends CustomPainter {
-  final List<SeatSection> sections;
+  final List<Section> sections;
   final Map<String, Color> colors;
   final Color defaultColor;
   final double scale;
@@ -27,7 +27,7 @@ class PathPainter extends CustomPainter {
     }
   }
 
-  Color _getSectionColor(SeatSection section) {
+  Color _getSectionColor(Section section) {
     return colors[section.id] ?? defaultColor;
   }
 
