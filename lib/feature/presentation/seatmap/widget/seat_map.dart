@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:path_parsing/path_parsing.dart';
-import 'package:viewith/feature/seatmap/widget/painter/path_painter.dart';
-import 'package:viewith/feature/seatmap/widget/painter/path_printer.dart';
-import 'package:viewith/feature/seatmap/widget/painter/stage_painter.dart';
+import 'package:viewith/feature/presentation/seatmap/widget/painter/path_painter.dart';
+import 'package:viewith/feature/presentation/seatmap/widget/painter/path_printer.dart';
+import 'package:viewith/feature/presentation/seatmap/widget/painter/stage_painter.dart';
 import 'package:viewith/resource/constant.dart';
-import 'package:viewith/ui/colors.dart';
+import 'package:viewith/ui/app_design.dart';
 import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
@@ -33,10 +33,10 @@ class _SeatMapState extends State<SeatMap> {
   Map<String, Color> colors = {};
   double _svgWidth = 0;
   double _svgHeight = 0;
-  final Color defaultColor = VIColors.gray100;
-  final Color selectedColor = VIColors.gray900;
-  final Color defaultTextColor = VIColors.gray900;
-  final Color selectedTextColor = VIColors.gray50;
+  final Color defaultColor = AppDesign.colors.gray100;
+  final Color selectedColor = AppDesign.colors.gray900;
+  final Color defaultTextColor = AppDesign.colors.gray900;
+  final Color selectedTextColor = AppDesign.colors.gray50;
 
   final TransformationController _transformationController = TransformationController();
 
