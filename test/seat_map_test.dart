@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:viewith/feature/seatmap/widget/painter/path_painter.dart';// SeatMap 위젯이 있는 파일 경로로 변경해주세요
-import 'package:viewith/feature/seatmap/widget/seat_map.dart';
+import 'package:viewith/feature/presentation/seatmap/widget/painter/path_painter.dart';
+import 'package:viewith/feature/presentation/seatmap/widget/seat_map.dart';
 
 @GenerateMocks([AssetBundle])
 import 'seat_map_test.mocks.dart';
