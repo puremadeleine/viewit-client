@@ -12,5 +12,4 @@ class Strings {
   static const x = 'x';
   static const y = 'y';
   static const roundedX = 'rx';
-
 }
