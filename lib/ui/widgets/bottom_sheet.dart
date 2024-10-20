@@ -22,7 +22,7 @@ class VIBottomSheet<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
       decoration: BoxDecoration(
         color: AppDesign.colors.white,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
@@ -43,7 +43,7 @@ class VIBottomSheet<T> extends StatelessWidget {
 
   Widget _buildListView() {
     return Flexible(
-      child: ListView.builder(
+      child: ListView.separated(
         controller: controller,
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -54,6 +54,7 @@ class VIBottomSheet<T> extends StatelessWidget {
             child: itemBuilder(context, items[index]),
           );
         },
+        separatorBuilder: (context, index) => const SizedBox(height: 20,),
       ),
     );
   }

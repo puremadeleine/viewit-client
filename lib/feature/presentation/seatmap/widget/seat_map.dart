@@ -30,15 +30,25 @@ class SeatMap extends StatefulWidget {
 class _SeatMapState extends State<SeatMap> {
   List<Section> sections = [];
   List<Section> stages = [];
+
   Map<String, Color> colors = {};
+
   double _svgWidth = 0;
   double _svgHeight = 0;
+  final double _initialScale = 1.5;
+
   final Color defaultColor = AppDesign.colors.gray100;
   final Color selectedColor = AppDesign.colors.gray900;
   final Color defaultTextColor = AppDesign.colors.gray900;
   final Color selectedTextColor = AppDesign.colors.gray50;
 
   final TransformationController _transformationController = TransformationController();
+
+  @override
+  void initState() {
+    super.initState();
+    _setInitialScale();
+  }
 
   @override
   void didChangeDependencies() {
@@ -51,6 +61,18 @@ class _SeatMapState extends State<SeatMap> {
   void dispose() {
     _transformationController.dispose();
     super.dispose();
+  }
+
+  void _setInitialScale() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox renderBox = context.findRenderObject() as RenderBox;
+      final size = renderBox.size;
+      final x = -size.width / 2 * (_initialScale - 1);
+      final y = -size.height / 2 * (_initialScale - 1);
+      _transformationController.value = Matrix4.identity()
+        ..translate(x, y)
+        ..scale(_initialScale);
+    });
   }
 
   Future<XmlDocument> _loadSvg(String name) async {
