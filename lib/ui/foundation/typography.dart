@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class TypographyTokens {
   // Font sizes
@@ -25,44 +25,44 @@ class TypographyTokens {
 }
 
 class AppTypography {
-  final TextStyle h1 = TextStyle(
+  final TextStyle h1 = const TextStyle(
     fontSize: 24,
     fontWeight: TypographyTokens.extraBold,
     height: 1.4,
     letterSpacing: -0.5,
   );
 
-  final TextStyle h2 = TextStyle(
+  final TextStyle h2 = const TextStyle(
     fontSize: 17,
     fontWeight: TypographyTokens.bold,
     height: 1.4,
   );
 
-  final TextStyle body1 = TextStyle(
+  final TextStyle body1 = const TextStyle(
     fontSize: 16,
     fontWeight: TypographyTokens.regular,
     height: 1.5,
   );
 
-  final TextStyle body2 = TextStyle(
+  final TextStyle body2 = const TextStyle(
     fontSize: 14,
     fontWeight: TypographyTokens.regular,
     height: 1.4,
   );
 
-  final TextStyle body3 = TextStyle(
+  final TextStyle body3 = const TextStyle(
     fontSize: 13,
     fontWeight: TypographyTokens.regular,
     height: 1.4,
   );
 
-  final TextStyle body4 = TextStyle(
+  final TextStyle body4 = const TextStyle(
     fontSize: 12,
     fontWeight: TypographyTokens.regular,
     height: 1.4,
   );
 
-  final TextStyle body4Bold = TextStyle(
+  final TextStyle body4Bold = const TextStyle(
     fontSize: 12,
     fontWeight: TypographyTokens.bold,
     height: 1.4,
