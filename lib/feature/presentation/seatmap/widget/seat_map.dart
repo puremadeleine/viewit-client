@@ -7,6 +7,7 @@ import 'package:viewith/feature/presentation/seatmap/widget/painter/path_printer
 import 'package:viewith/feature/presentation/seatmap/widget/painter/stage_painter.dart';
 import 'package:viewith/resource/constant.dart';
 import 'package:viewith/ui/app_design.dart';
+import 'package:viewith/utils/svg_util.dart';
 import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
@@ -98,9 +99,11 @@ class _SeatMapState extends State<SeatMap> {
     final String svgString = await DefaultAssetBundle.of(context).loadString(name);
     final document = XmlDocument.parse(svgString);
 
-    final svgElement = document.findAllElements(Strings.svg).first;
-    _svgWidth = double.tryParse(svgElement.getAttribute(Strings.width) ?? '') ?? 100.0;
-    _svgHeight = double.tryParse(svgElement.getAttribute(Strings.height) ?? '') ?? 100.0;
+    if (mounted) {
+      final size = await SvgUtil.getSize(context, name);
+      _svgWidth = size.width;
+      _svgHeight = size.height;
+    }
 
     return document;
   }

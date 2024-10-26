@@ -3,6 +3,7 @@ import 'package:viewith/feature/presentation/seatmap/model/review.dart';
 import 'package:viewith/feature/presentation/seatmap/widget/review_item.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
+import 'package:viewith/utils/svg_util.dart';
 
 import '../widget/seat_map.dart';
 
@@ -14,6 +15,29 @@ class ReviewListScreen extends StatefulWidget {
 }
 
 class _ReviewListScreenState extends State<ReviewListScreen> {
+
+  double _minChildSize = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await _calculateMinChildSize();
+  }
+
+  Future<void> _calculateMinChildSize() async {
+    final Size screenSize = MediaQuery.of(context).size;
+    final Size svgSize = await SvgUtil.getSize(context, 'assets/seatmap/kspo.svg');
+    double scaledHeight = screenSize.width * (svgSize.height / svgSize.width);
+    scaledHeight += 30;
+    double availableHeight = screenSize.height - kToolbarHeight;
+    _minChildSize = 1 - (scaledHeight / availableHeight);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +64,7 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
 
   Widget _buildSeatMap() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top: 10),
       child: SeatMap(
         seatmapName: 'assets/seatmap/kspo.svg',
         stageName: 'assets/seatmap/kspo-t.svg',
@@ -54,9 +78,9 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
 
   Widget _buildReviews() {
     return DraggableScrollableSheet(
-      initialChildSize: 0.5, // 초기 높이 (전체 화면 대비)
-      minChildSize: 0.5, // 최소 높이
-      maxChildSize: 1.0, // 최대 높이
+      initialChildSize: _minChildSize,
+      minChildSize: _minChildSize,
+      maxChildSize: 1.0,
       builder: (BuildContext context, ScrollController scrollController) {
         return VIBottomSheet<Review>(
           controller: scrollController,
