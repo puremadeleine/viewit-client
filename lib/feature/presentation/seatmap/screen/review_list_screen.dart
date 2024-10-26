@@ -40,11 +40,14 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
 
   Widget _buildSeatMap() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: SeatMap(
         seatmapName: 'assets/seatmap/kspo.svg',
         stageName: 'assets/seatmap/kspo-t.svg',
-        onSectionSelected: (id) {},
+        mode: const SeatMapReadOnly(reviewCount: {'SEAT_17': 5}),
+        onSectionSelected: (id) {
+          print(id);
+        },
       ),
     );
   }
