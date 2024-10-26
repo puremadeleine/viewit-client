@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/painter/path_painter.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/seat_map.dart';
+import 'package:viewith/feature/seatmap/presentation/widget/painter/path_painter.dart';
+import 'package:viewith/feature/seatmap/presentation/widget/seat_map.dart';
 
 @GenerateMocks([AssetBundle])
 import 'seat_map_test.mocks.dart';
@@ -34,6 +34,7 @@ void main() {
           child: SeatMap(
             seatmapName: 'assets/seat_map.svg',
             onSectionSelected: mockCallback,
+            mode: const SeatMapWritable(),
           ),
         ),
       ),
@@ -61,6 +62,7 @@ void main() {
             key: const ValueKey('seatMap'),
             seatmapName: 'assets/seat_map.svg',
             onSectionSelected: mockCallback,
+            mode: const SeatMapWritable(),
           ),
         ),
       ),
