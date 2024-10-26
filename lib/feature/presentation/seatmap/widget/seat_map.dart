@@ -11,15 +11,33 @@ import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
 
+sealed class SeatMapState {
+  const SeatMapState();
+}
+
+class SeatMapWritable extends SeatMapState {
+  const SeatMapWritable();
+}
+
+class SeatMapReadOnly extends SeatMapState {
+  final Map<String, int> reviewCount;
+
+  const SeatMapReadOnly({required this.reviewCount});
+}
+
 class SeatMap extends StatefulWidget {
   final String seatmapName;
   final String? stageName;
+  final Map<String, int>? reviewCount;
+  final SeatMapState mode;
   final Function(String) onSectionSelected;
 
   const SeatMap({
     super.key,
     required this.seatmapName,
     this.stageName,
+    this.reviewCount,
+    required this.mode,
     required this.onSectionSelected,
   });
 
@@ -30,9 +48,13 @@ class SeatMap extends StatefulWidget {
 class _SeatMapState extends State<SeatMap> {
   List<Section> sections = [];
   List<Section> stages = [];
+
   Map<String, Color> colors = {};
+
   double _svgWidth = 0;
   double _svgHeight = 0;
+  final double _initialScale = 1.5;
+
   final Color defaultColor = AppDesign.colors.gray100;
   final Color selectedColor = AppDesign.colors.gray900;
   final Color defaultTextColor = AppDesign.colors.gray900;
@@ -41,16 +63,35 @@ class _SeatMapState extends State<SeatMap> {
   final TransformationController _transformationController = TransformationController();
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
+    _setInitialScale();
+  }
+
+  @override
+  void didChangeDependencies() async {
     super.didChangeDependencies();
-    _loadSeatMap();
+    await _loadSeatMap();
     _loadStages();
+    _setInitialColor();
   }
 
   @override
   void dispose() {
     _transformationController.dispose();
     super.dispose();
+  }
+
+  void _setInitialScale() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox renderBox = context.findRenderObject() as RenderBox;
+      final size = renderBox.size;
+      final x = -size.width / 2 * (_initialScale - 1);
+      final y = -size.height / 2 * (_initialScale - 1);
+      _transformationController.value = Matrix4.identity()
+        ..translate(x, y)
+        ..scale(_initialScale);
+    });
   }
 
   Future<XmlDocument> _loadSvg(String name) async {
@@ -98,6 +139,21 @@ class _SeatMapState extends State<SeatMap> {
     });
   }
 
+  void _setInitialColor() {
+    switch (widget.mode) {
+      case SeatMapWritable():
+        return;
+      case SeatMapReadOnly(:final reviewCount):
+        for (var section in sections) {
+          final count = reviewCount[section.id];
+          if (count == null) continue;
+          if (count < 10) { // 갯수에 따라 조정 필요함 
+            colors[section.id] = AppDesign.colors.gray50;
+          }
+        }
+    }
+  }
+
   Path _getPath(String svgPath) {
     final Path path = Path();
     writeSvgPathDataToPath(svgPath, PathPrinter(path));
@@ -139,10 +195,8 @@ class _SeatMapState extends State<SeatMap> {
         return GestureDetector(
           key: const ValueKey('seatMapGestureDetector'),
           onTapDown: (details) {
-            final RenderBox box = context.findRenderObject() as RenderBox;
-            final localPosition = box.globalToLocal(details.globalPosition);
-            final transformedPosition = _transformationController.toScene(localPosition);
-            _onSectionTap(transformedPosition, scale);
+            Offset position = _adjustRatio(details);
+            _onSectionTap(position, scale);
           },
           child: InteractiveViewer(
             maxScale: 3,
@@ -174,6 +228,13 @@ class _SeatMapState extends State<SeatMap> {
     );
   }
 
+  Offset _adjustRatio(TapDownDetails details) {
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    final localPosition = box.globalToLocal(details.globalPosition);
+    final transformedPosition = _transformationController.toScene(localPosition);
+    return transformedPosition;
+  }
+
   void _onSectionTap(Offset position, double scale) {
     final x = position.dx / scale;
     final y = position.dy / scale;
@@ -181,7 +242,7 @@ class _SeatMapState extends State<SeatMap> {
 
     for (var section in sections) {
       if (section.path.contains(offset)) {
-        _changeColor(section.id);
+        if (widget.mode == const SeatMapWritable()) _changeColor(section.id);
         widget.onSectionSelected(section.id);
         break;
       }
