@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:viewith/feature/presentation/seatmap/model/review.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/review_item.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
 import 'package:viewith/utils/svg_util.dart';
 
+import '../model/review.dart';
+import '../widget/review_item.dart';
 import '../widget/seat_map.dart';
 
 class ReviewListScreen extends StatefulWidget {
@@ -15,7 +15,6 @@ class ReviewListScreen extends StatefulWidget {
 }
 
 class _ReviewListScreenState extends State<ReviewListScreen> {
-
   double _minChildSize = 0.0;
 
   @override

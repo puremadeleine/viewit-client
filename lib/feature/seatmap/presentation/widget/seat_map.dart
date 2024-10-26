@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:path_parsing/path_parsing.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/painter/path_painter.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/painter/path_printer.dart';
-import 'package:viewith/feature/presentation/seatmap/widget/painter/stage_painter.dart';
 import 'package:viewith/resource/constant.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/utils/svg_util.dart';
 import 'package:xml/xml.dart';
 
 import '../model/seat_section.dart';
+import 'painter/path_painter.dart';
+import 'painter/path_printer.dart';
+import 'painter/stage_painter.dart';
 
 sealed class SeatMapState {
   const SeatMapState();
