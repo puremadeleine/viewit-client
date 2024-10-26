@@ -25,46 +25,94 @@ class TypographyTokens {
 }
 
 class AppTypography {
-  final TextStyle h1 = const TextStyle(
-    fontSize: 24,
-    fontWeight: TypographyTokens.extraBold,
-    height: 1.4,
-    letterSpacing: -0.5,
-  );
+  TextStyle h1({Color? color}) => TextStyle(
+        fontSize: 24,
+        fontWeight: TypographyTokens.extraBold,
+        height: 1.4,
+        letterSpacing: -0.5,
+        color: color,
+      );
 
-  final TextStyle h2 = const TextStyle(
-    fontSize: 17,
-    fontWeight: TypographyTokens.bold,
-    height: 1.4,
-  );
+  TextStyle h2({Color? color}) => TextStyle(
+        fontSize: 17,
+        fontWeight: TypographyTokens.bold,
+        height: 1.4,
+        color: color,
+      );
 
-  final TextStyle body1 = const TextStyle(
-    fontSize: 16,
-    fontWeight: TypographyTokens.regular,
-    height: 1.5,
-  );
+  TextStyle h3({Color? color}) => TextStyle(
+        fontSize: 14,
+        fontWeight: TypographyTokens.bold,
+        height: 1.4,
+        color: color,
+      );
 
-  final TextStyle body2 = const TextStyle(
-    fontSize: 14,
-    fontWeight: TypographyTokens.regular,
-    height: 1.4,
-  );
+  TextStyle title1({Color? color}) => TextStyle(
+        fontSize: 23,
+        fontWeight: TypographyTokens.bold,
+        height: 1.4,
+        color: color,
+      );
 
-  final TextStyle body3 = const TextStyle(
-    fontSize: 13,
-    fontWeight: TypographyTokens.regular,
-    height: 1.4,
-  );
+  TextStyle title2bold({Color? color}) => TextStyle(
+        fontSize: 19,
+        fontWeight: TypographyTokens.bold,
+        height: 1.4,
+        color: color,
+      );
 
-  final TextStyle body4 = const TextStyle(
-    fontSize: 12,
-    fontWeight: TypographyTokens.regular,
-    height: 1.4,
-  );
+  TextStyle title2semiBold({Color? color}) => TextStyle(
+        fontSize: 19,
+        fontWeight: TypographyTokens.semiBold,
+        height: 1.4,
+        color: color,
+      );
 
-  final TextStyle body4Bold = const TextStyle(
-    fontSize: 12,
-    fontWeight: TypographyTokens.bold,
-    height: 1.4,
-  );
+  TextStyle title3semiBold({Color? color}) => TextStyle(
+        fontSize: 16,
+        fontWeight: TypographyTokens.semiBold,
+        height: 1.4,
+        color: color,
+      );
+
+  TextStyle title3medium({Color? color}) => TextStyle(
+        fontSize: 16,
+        fontWeight: TypographyTokens.medium,
+        height: 1.4,
+        color: color,
+      );
+
+  TextStyle body1({Color? color}) => TextStyle(
+      fontSize: 16,
+      fontWeight: TypographyTokens.regular,
+      height: 1.5,
+      color: color);
+
+  TextStyle body2({Color? color}) => TextStyle(
+        fontSize: 14,
+        fontWeight: TypographyTokens.regular,
+        height: 1.4,
+        color: color,
+      );
+
+  TextStyle body3({Color? color}) => TextStyle(
+        fontSize: 13,
+        fontWeight: TypographyTokens.regular,
+        height: 1.4,
+        color: color,
+      );
+
+  TextStyle body4({Color? color}) => TextStyle(
+        fontSize: 12,
+        fontWeight: TypographyTokens.regular,
+        height: 1.4,
+        color: color,
+      );
+
+  TextStyle body4Bold({Color? color}) => TextStyle(
+        fontSize: 12,
+        fontWeight: TypographyTokens.bold,
+        height: 1.4,
+        color: color,
+      );
 }

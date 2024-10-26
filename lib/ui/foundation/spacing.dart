@@ -52,6 +52,7 @@ class AppSpacing {
   EdgeInsets get horizontal16 => EdgeInsets.symmetric(horizontal: sp16);
   EdgeInsets get horizontal24 => EdgeInsets.symmetric(horizontal: sp24);
 
+  EdgeInsets get vertical4 => EdgeInsets.symmetric(vertical: sp4);
   EdgeInsets get vertical8 => EdgeInsets.symmetric(vertical: sp8);
   EdgeInsets get vertical16 => EdgeInsets.symmetric(vertical: sp16);
   EdgeInsets get vertical24 => EdgeInsets.symmetric(vertical: sp24);
@@ -63,6 +64,10 @@ class AppSpacing {
   EdgeInsets get buttonPadding => EdgeInsets.symmetric(
     horizontal: sp16,
     vertical: sp8,
+  );
+  EdgeInsets get chipPadding => EdgeInsets.symmetric(
+    horizontal: sp8,
+    vertical: sp4,
   );
   EdgeInsets get cardPadding => EdgeInsets.all(sp16);
   EdgeInsets get listItemPadding => EdgeInsets.symmetric(
