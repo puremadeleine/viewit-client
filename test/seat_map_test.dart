@@ -33,6 +33,7 @@ void main() {
           bundle: mockAssetBundle,
           child: SeatMap(
             seatmapName: 'assets/seat_map.svg',
+            mode: const SeatMapWritable(),
             onSectionSelected: mockCallback,
           ),
         ),
@@ -60,6 +61,7 @@ void main() {
           child: SeatMap(
             key: const ValueKey('seatMap'),
             seatmapName: 'assets/seat_map.svg',
+            mode: const SeatMapWritable(),
             onSectionSelected: mockCallback,
           ),
         ),
