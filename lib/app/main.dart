@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:viewith/route/app_router.dart';
+import 'package:viewith/app/route/app_router.dart';
 
 void main() {
   runApp(const MyApp());
