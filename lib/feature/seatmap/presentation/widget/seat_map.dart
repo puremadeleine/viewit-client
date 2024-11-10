@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:path_parsing/path_parsing.dart';
 import 'package:viewith/resource/constant.dart';
 import 'package:viewith/ui/app_design.dart';
-import 'package:viewith/utils/svg_util.dart';
 import 'package:xml/xml.dart';
 
+import '../../../../core/utils/svg_util.dart';
 import '../model/seat_section.dart';
 import 'painter/path_painter.dart';
 import 'painter/path_printer.dart';
