@@ -4,12 +4,9 @@ import 'package:viewith/network/token_handler.dart';
 
 class Client {
   late Dio _dio;
-  final TokenHandler _tokenHandler = TokenHandler();
-  static final Client _instance = Client._internal();
+  final TokenHandler _tokenHandler;
 
-  factory Client() => _instance;
-
-  Client._internal() {
+  Client(this._tokenHandler) {
     _dio = Dio(
       BaseOptions(
         baseUrl: '',
@@ -32,63 +29,48 @@ class Client {
             return handler.next(options);
           }
 
-          final tokenStatus = await _tokenHandler.checkTokenStatus();
-
-          switch (tokenStatus) {
-            case TokenStatus.valid:
-              final token = await _tokenHandler.getAccessToken();
-              options.headers['Authorization'] = 'Bearer $token';
-              return handler.next(options);
-
-            case TokenStatus.needsRefresh:
-              final isRefreshSuccess = await _refreshToken();
-              if (isRefreshSuccess) {
-                final token = await _tokenHandler.getAccessToken();
-                options.headers['Authorization'] = 'Bearer $token';
-                return handler.next(options);
-              }
-
-              await _tokenHandler.clearTokens();
-              return handler.reject(
-                DioException(
-                  requestOptions: options,
-                  type: DioExceptionType.badResponse,
-                  response: Response(
-                    statusCode: 401,
-                    requestOptions: options,
-                  ),
-                ),
-              );
-
-            case TokenStatus.expired:
-            case TokenStatus.noTokens:
-              return handler.reject(
-                DioException(
-                  requestOptions: options,
-                  error: 'Authentication required',
-                ),
-              );
+          final hasTokens = await _tokenHandler.hasTokens();
+          if (!hasTokens) {
+            return handler.reject(
+              DioException(
+                requestOptions: options,
+                error: 'Authentication required',
+              ),
+            );
           }
+
+          final token = await _tokenHandler.getAccessToken();
+          options.headers['Authorization'] = 'Bearer $token';
+          return handler.next(options);
         },
         onResponse: (response, handler) async {
           return handler.next(response);
         },
         onError: (error, handler) async {
-          if (error.response?.statusCode == 401 &&
-              error.requestOptions.extra['requiresAuth'] == true) {
-            final status = await _tokenHandler.checkTokenStatus();
+          if (error.response?.statusCode == 401 && error.requestOptions.extra['requiresAuth'] == true) {
+            final refreshToken = await _tokenHandler.getRefreshToken();
+            if (refreshToken == null) {
+              await _tokenHandler.clearTokens();
+              return handler.next(error);
+            }
 
-            if (status == TokenStatus.needsRefresh) {
-              try {
-                await _refreshToken();
-                final options = error.requestOptions;
-                options.headers['Authorization'] =
-                    'Bearer ${_tokenHandler.getAccessToken()}';
-                final response = await _dio.fetch(options);
-                return handler.resolve(response);
-              } catch (e) {
-                return handler.reject(error);
+            try {
+              final response = await _tokenHandler.refreshToken(await _tokenHandler.getRefreshToken());
+              if (response != null) {
+                final accessToken = response['accessToken'];
+                final refreshToken = response['refreshToken'];
+                if (accessToken != null && refreshToken != null) {
+                  _tokenHandler.saveTokens(accessToken: accessToken, refreshToken: refreshToken);
+                } else {
+                  await _tokenHandler.clearTokens();
+                  return handler.next(error);
+                }
+                error.requestOptions.headers['Authorization'] = 'Bearer $accessToken';
+                final retryResponse = await _dio.fetch(error.requestOptions);
+                return handler.resolve(retryResponse);
               }
+            } catch (e) {
+              await _tokenHandler.clearTokens();
             }
           }
           return handler.next(error);
@@ -100,33 +82,6 @@ class Client {
       requestBody: true,
       responseBody: true,
     ));
-  }
-
-  Future<bool> _refreshToken() async {
-    try {
-      final refreshToken = await _tokenHandler.getRefreshToken();
-      if (refreshToken == null) return false;
-
-      final response = await _dio.post(
-        '/v1/refresh',
-        data: {'refresh_token': refreshToken},
-      );
-
-      if (response.statusCode == 200) {
-        await _tokenHandler.saveTokens(
-          accessToken: response.data['access_token'],
-          refreshToken: response.data['refresh_token'],
-          expiry: DateTime.now().add(
-            Duration(seconds: response.data['expires_in']),
-          ),
-        );
-        return true;
-      }
-      return false;
-    } catch (e) {
-      await _tokenHandler.clearTokens();
-      return false;
-    }
   }
 
   Future<Response> get(
