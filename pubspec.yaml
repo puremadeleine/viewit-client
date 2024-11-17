@@ -25,11 +25,12 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   mockito: ^5.4.4
   build_runner: ^2.0.0
+  flutter_gen_runner:
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/seatmap/
+    - assets/images/
   fonts:
     - family: Pretendard
       fonts:
@@ -51,3 +52,10 @@ flutter:
           weight: 800
         - asset: assets/fonts/Pretendard-Black.otf
           weight: 900
+
+flutter_gen:
+  output: lib/ui/gen/
+  line_length: 120
+
+  integrations:
+    flutter_svg: true
