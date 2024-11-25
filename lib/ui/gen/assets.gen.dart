@@ -15,14 +15,189 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Add_ring_light.svg
+  SvgGenImage get addRingLight => const SvgGenImage('assets/images/Add_ring_light.svg');
+
+  /// File path: assets/images/Add_round_light.svg
+  SvgGenImage get addRoundLight => const SvgGenImage('assets/images/Add_round_light.svg');
+
+  /// File path: assets/images/Add_square_light.svg
+  SvgGenImage get addSquareLight => const SvgGenImage('assets/images/Add_square_light.svg');
+
+  /// File path: assets/images/Arrow_alt_left_alt.svg
+  SvgGenImage get arrowAltLeftAlt => const SvgGenImage('assets/images/Arrow_alt_left_alt.svg');
+
+  /// File path: assets/images/Bookmark_fill.svg
+  SvgGenImage get bookmarkFill => const SvgGenImage('assets/images/Bookmark_fill.svg');
+
+  /// File path: assets/images/Bookmark_light.svg
+  SvgGenImage get bookmarkLight => const SvgGenImage('assets/images/Bookmark_light.svg');
+
+  /// File path: assets/images/Camera_fill.svg
+  SvgGenImage get cameraFill => const SvgGenImage('assets/images/Camera_fill.svg');
+
+  /// File path: assets/images/Camera_light.svg
+  SvgGenImage get cameraLight => const SvgGenImage('assets/images/Camera_light.svg');
+
   /// File path: assets/images/Chat_search.svg
   SvgGenImage get chatSearch => const SvgGenImage('assets/images/Chat_search.svg');
 
   /// File path: assets/images/Chat_search_fill.svg
   SvgGenImage get chatSearchFill => const SvgGenImage('assets/images/Chat_search_fill.svg');
 
+  /// File path: assets/images/Check_round_fill.svg
+  SvgGenImage get checkRoundFill => const SvgGenImage('assets/images/Check_round_fill.svg');
+
+  /// File path: assets/images/Close_round_light.svg
+  SvgGenImage get closeRoundLight => const SvgGenImage('assets/images/Close_round_light.svg');
+
+  /// File path: assets/images/Critical_duotone.svg
+  SvgGenImage get criticalDuotone => const SvgGenImage('assets/images/Critical_duotone.svg');
+
+  /// File path: assets/images/Critical_duotone_line.svg
+  SvgGenImage get criticalDuotoneLine => const SvgGenImage('assets/images/Critical_duotone_line.svg');
+
+  /// File path: assets/images/Critical_fill.svg
+  SvgGenImage get criticalFill => const SvgGenImage('assets/images/Critical_fill.svg');
+
+  /// File path: assets/images/Critical_light.svg
+  SvgGenImage get criticalLight => const SvgGenImage('assets/images/Critical_light.svg');
+
+  /// File path: assets/images/Dell_fill_light.svg
+  SvgGenImage get dellFillLight => const SvgGenImage('assets/images/Dell_fill_light.svg');
+
+  /// File path: assets/images/Dell_light.svg
+  SvgGenImage get dellLight => const SvgGenImage('assets/images/Dell_light.svg');
+
+  /// File path: assets/images/Expand_down_light.svg
+  SvgGenImage get expandDownLight => const SvgGenImage('assets/images/Expand_down_light.svg');
+
+  /// File path: assets/images/Favorite_fill.svg
+  SvgGenImage get favoriteFill => const SvgGenImage('assets/images/Favorite_fill.svg');
+
+  /// File path: assets/images/Favorite_light.svg
+  SvgGenImage get favoriteLight => const SvgGenImage('assets/images/Favorite_light.svg');
+
+  /// File path: assets/images/Filter.svg
+  SvgGenImage get filter => const SvgGenImage('assets/images/Filter.svg');
+
+  /// File path: assets/images/Home_light.svg
+  SvgGenImage get homeLight => const SvgGenImage('assets/images/Home_light.svg');
+
+  /// File path: assets/images/Img_box_light.svg
+  SvgGenImage get imgBoxLight => const SvgGenImage('assets/images/Img_box_light.svg');
+
+  /// File path: assets/images/Info_fill.svg
+  SvgGenImage get infoFill => const SvgGenImage('assets/images/Info_fill.svg');
+
+  /// File path: assets/images/Meatballs_menu.svg
+  SvgGenImage get meatballsMenu => const SvgGenImage('assets/images/Meatballs_menu.svg');
+
+  /// File path: assets/images/Pin_fill.svg
+  SvgGenImage get pinFill => const SvgGenImage('assets/images/Pin_fill.svg');
+
+  /// File path: assets/images/Pin_light.svg
+  SvgGenImage get pinLight => const SvgGenImage('assets/images/Pin_light.svg');
+
+  /// File path: assets/images/Pipe_fill.svg
+  SvgGenImage get pipeFill => const SvgGenImage('assets/images/Pipe_fill.svg');
+
+  /// File path: assets/images/Pipe_light.svg
+  SvgGenImage get pipeLight => const SvgGenImage('assets/images/Pipe_light.svg');
+
+  /// File path: assets/images/Question_fill.svg
+  SvgGenImage get questionFill => const SvgGenImage('assets/images/Question_fill.svg');
+
+  /// File path: assets/images/Refresh.svg
+  SvgGenImage get refresh => const SvgGenImage('assets/images/Refresh.svg');
+
+  /// File path: assets/images/Refresh_light.svg
+  SvgGenImage get refreshLight => const SvgGenImage('assets/images/Refresh_light.svg');
+
+  /// File path: assets/images/Setting_fill.svg
+  SvgGenImage get settingFill => const SvgGenImage('assets/images/Setting_fill.svg');
+
+  /// File path: assets/images/Setting_line_light.svg
+  SvgGenImage get settingLineLight => const SvgGenImage('assets/images/Setting_line_light.svg');
+
+  /// File path: assets/images/Sort.svg
+  SvgGenImage get sort => const SvgGenImage('assets/images/Sort.svg');
+
+  /// File path: assets/images/Star_fill.svg
+  SvgGenImage get starFill => const SvgGenImage('assets/images/Star_fill.svg');
+
+  /// File path: assets/images/Star_light.svg
+  SvgGenImage get starLight => const SvgGenImage('assets/images/Star_light.svg');
+
+  /// File path: assets/images/Trash_light.svg
+  SvgGenImage get trashLight => const SvgGenImage('assets/images/Trash_light.svg');
+
+  /// File path: assets/images/User_alt.svg
+  SvgGenImage get userAlt => const SvgGenImage('assets/images/User_alt.svg');
+
+  /// File path: assets/images/User_alt_fill.svg
+  SvgGenImage get userAltFill => const SvgGenImage('assets/images/User_alt_fill.svg');
+
+  /// File path: assets/images/candlestick_light.svg
+  SvgGenImage get candlestickLight => const SvgGenImage('assets/images/candlestick_light.svg');
+
+  /// File path: assets/images/info_light.svg
+  SvgGenImage get infoLight => const SvgGenImage('assets/images/info_light.svg');
+
+  /// File path: assets/images/thumb_down.svg
+  SvgGenImage get thumbDown => const SvgGenImage('assets/images/thumb_down.svg');
+
+  /// File path: assets/images/thumb_up.svg
+  SvgGenImage get thumbUp => const SvgGenImage('assets/images/thumb_up.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [chatSearch, chatSearchFill];
+  List<SvgGenImage> get values => [
+        addRingLight,
+        addRoundLight,
+        addSquareLight,
+        arrowAltLeftAlt,
+        bookmarkFill,
+        bookmarkLight,
+        cameraFill,
+        cameraLight,
+        chatSearch,
+        chatSearchFill,
+        checkRoundFill,
+        closeRoundLight,
+        criticalDuotone,
+        criticalDuotoneLine,
+        criticalFill,
+        criticalLight,
+        dellFillLight,
+        dellLight,
+        expandDownLight,
+        favoriteFill,
+        favoriteLight,
+        filter,
+        homeLight,
+        imgBoxLight,
+        infoFill,
+        meatballsMenu,
+        pinFill,
+        pinLight,
+        pipeFill,
+        pipeLight,
+        questionFill,
+        refresh,
+        refreshLight,
+        settingFill,
+        settingLineLight,
+        sort,
+        starFill,
+        starLight,
+        trashLight,
+        userAlt,
+        userAltFill,
+        candlestickLight,
+        infoLight,
+        thumbDown,
+        thumbUp
+      ];
 }
 
 class Assets {

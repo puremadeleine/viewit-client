@@ -17,13 +17,13 @@ class NavigationBar extends StatelessWidget {
       bottomNavigationBar: VINavigationBar(
         items: [
           VINavigationItem(
-            activeIcon: Assets.images.chatSearchFill.svg(),
-            inactiveIcon: Assets.images.chatSearch.svg(),
+            activeIcon: Assets.images.pipeFill.svg(width: 36, height: 36),
+            inactiveIcon: Assets.images.pipeLight.svg(width: 36, height: 36),
             title: '후기',
           ),
           VINavigationItem(
-            activeIcon: Assets.images.chatSearchFill.svg(),
-            inactiveIcon: Assets.images.chatSearch.svg(),
+            activeIcon: Assets.images.userAltFill.svg(width: 36, height: 36),
+            inactiveIcon: Assets.images.userAlt.svg(width: 36, height: 36),
             title: '프로필',
           ),
         ],

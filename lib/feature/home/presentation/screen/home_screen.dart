@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(color: AppDesign.colors.gray200,);
+          return Divider(color: AppDesign.colors.gray200);
         },
       ),
     );

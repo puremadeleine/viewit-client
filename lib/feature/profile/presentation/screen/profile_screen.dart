@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viewith/feature/profile/presentation/model/profile_enum.dart';
 import 'package:viewith/ui/app_design.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -8,7 +9,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('내 프로필', style: AppDesign.typo.title2bold(color: AppDesign.colors.gray50),)),
+        title: Center(
+            child: Text(
+          '내 프로필',
+          style: AppDesign.typo.title2bold(color: AppDesign.colors.gray50),
+        )),
         backgroundColor: AppDesign.colors.gray800,
       ),
       body: _buildBody(),
@@ -32,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           )
         ]),
-        // _buildList(),
+        Expanded(child: _buildListView()),
       ],
     );
   }
@@ -100,6 +105,27 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildListView() {
+    const items = Profile.values;
+    return Padding(
+      padding: AppDesign.spacing.screenPadding,
+      child: ListView.separated(
+        itemBuilder: (context, index) => _buildItem(items[index].title),
+        separatorBuilder: (context, index) {
+          return Divider(color: AppDesign.colors.gray200);
+        },
+        itemCount: items.length,
+      ),
+    );
+  }
+
+  Widget _buildItem(String text) {
+    return Padding(
+      padding: AppDesign.spacing.vertical16,
+      child: Text(text, style: AppDesign.typo.body2(),),
     );
   }
 }
