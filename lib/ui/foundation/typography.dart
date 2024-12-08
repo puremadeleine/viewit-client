@@ -54,6 +54,13 @@ class AppTypography {
         color: color,
       );
 
+  TextStyle title1ExtraBold({Color? color}) => TextStyle(
+    fontSize: 23,
+    fontWeight: TypographyTokens.extraBold,
+    height: 1.4,
+    color: color,
+  );
+
   TextStyle title2bold({Color? color}) => TextStyle(
         fontSize: 19,
         fontWeight: TypographyTokens.bold,
@@ -83,10 +90,18 @@ class AppTypography {
       );
 
   TextStyle body1({Color? color}) => TextStyle(
-      fontSize: 16,
-      fontWeight: TypographyTokens.regular,
-      height: 1.5,
-      color: color);
+        fontSize: 16,
+        fontWeight: TypographyTokens.regular,
+        height: 1.5,
+        color: color,
+      );
+
+  TextStyle body1Bold({Color? color}) => TextStyle(
+        fontSize: 16,
+        fontWeight: TypographyTokens.bold,
+        height: 1.5,
+        color: color,
+      );
 
   TextStyle body2({Color? color}) => TextStyle(
         fontSize: 14,
