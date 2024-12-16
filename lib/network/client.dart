@@ -6,10 +6,10 @@ class Client {
   late Dio _dio;
   final TokenHandler _tokenHandler;
 
-  Client(this._tokenHandler) {
+  Client(this._tokenHandler, {String baseUrl = ''}) {
     _dio = Dio(
       BaseOptions(
-        baseUrl: '',
+        baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 5),
         receiveTimeout: const Duration(seconds: 3),
         headers: {
@@ -19,6 +19,28 @@ class Client {
       ),
     );
     _addInterceptors();
+  }
+
+  Future<Map<String, String>?> _refreshToken(String? refreshToken) async {
+    try {
+      if (refreshToken == null) return null;
+
+      final response = await _dio.post(
+        '/v1/refresh',
+        data: {'refresh_token': refreshToken},
+        options: Options(extra: {'requiresAuth': false}),
+      );
+
+      if (response.statusCode == 200) {
+        return {
+          'accessToken': response.data['access_token'],
+          'refreshToken': response.data['refresh_token'],
+        };
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
   }
 
   void _addInterceptors() {
@@ -55,12 +77,15 @@ class Client {
             }
 
             try {
-              final response = await _tokenHandler.refreshToken(await _tokenHandler.getRefreshToken());
+              final response = await _refreshToken(refreshToken);
               if (response != null) {
                 final accessToken = response['accessToken'];
                 final refreshToken = response['refreshToken'];
                 if (accessToken != null && refreshToken != null) {
-                  _tokenHandler.saveTokens(accessToken: accessToken, refreshToken: refreshToken);
+                  await _tokenHandler.saveTokens(
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                  );
                 } else {
                   await _tokenHandler.clearTokens();
                   return handler.next(error);

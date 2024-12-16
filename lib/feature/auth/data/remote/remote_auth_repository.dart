@@ -21,6 +21,7 @@ class RemoteAuthRepository extends AuthRepository {
     if (await kakao.isKakaoTalkInstalled()) {
       try {
         kakao.OAuthToken token = await kakao.UserApi.instance.loginWithKakaoTalk();
+        print(token);
       } catch (error) {
         if (error is PlatformException && error.code == 'CANCELED') {
           throw Exception('로그인이 취소되었습니다.');

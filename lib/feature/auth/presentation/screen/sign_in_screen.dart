@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viewith/feature/auth/presentation/controller/sign_in_controller.dart';
-import 'package:viewith/feature/auth/service/auth_service_provider.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/rounded_button.dart';
 

@@ -12,9 +12,6 @@ class TokenHandler {
   String? _accessToken;
   String? _refreshToken;
 
-  final Client _client;
-  TokenHandler(this._client);
-
   Future<String?> getAccessToken() async {
     if (_accessToken != null) return _accessToken;
     _accessToken = await _storage.read(key: _accessTokenKey);
@@ -55,26 +52,5 @@ class TokenHandler {
     final accessToken = await getAccessToken();
     final refreshToken = await getRefreshToken();
     return accessToken != null && refreshToken != null;
-  }
-
-  Future<Map<String, String>?> refreshToken(String? refreshToken) async {
-    try {
-      if (refreshToken == null) return null;
-
-      final response = await _client.post(
-        '/v1/refresh',
-        data: {'refresh_token': refreshToken},
-      );
-
-      if (response.statusCode == 200) {
-        return {
-          'access_token': response.data['access_token'],
-          'refresh_token': response.data['refresh_token'],
-        };
-      }
-    } catch (e) {
-      return null;
-    }
-    return null;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/ui/widgets/vi_navigation_bar.dart';
 import 'package:viewith/ui/widgets/vi_navigation_item.dart';
 
@@ -31,7 +31,7 @@ class NavigationBar extends StatelessWidget {
         currentIndex: navigationShell.currentIndex,
         onTap: (int index) => navigationShell.goBranch(index),
         onCenterButtonTap: () async {
-
+          context.pushNamed(AppRoute.writingVenues.name);
         },
       ),
     );

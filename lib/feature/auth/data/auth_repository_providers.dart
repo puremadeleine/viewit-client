@@ -1,4 +1,4 @@
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:viewith/feature/auth/data/auth_repository.dart';
 import 'package:viewith/feature/auth/data/remote/remote_auth_repository.dart';

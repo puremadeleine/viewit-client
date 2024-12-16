@@ -8,7 +8,6 @@ class AuthService {
   final AuthRepository authRepository;
 
   Future<void> signInWithKakao() async {
-    print('ddd');
     final result = await authRepository.signInWithKakao();
   }
 }
