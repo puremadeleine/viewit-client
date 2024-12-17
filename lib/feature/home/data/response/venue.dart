@@ -6,9 +6,9 @@ part 'venue.g.dart';
 @freezed
 class Venue with _$Venue {
   const factory Venue({
-    required int venueId,
-    required String venueName,
-    required String venueLocation,
+    @JsonKey(name: 'venue_id') required int venueId,
+    @JsonKey(name: 'venue_name') required String venueName,
+    @JsonKey(name: 'venue_location') required String venueLocation,
     required List<Performance> performances,
   }) = _Venue;
 
@@ -19,7 +19,7 @@ class Venue with _$Venue {
 class Performance with _$Performance {
   const factory Performance({
     required String artist,
-    required String imageUrl,
+    @JsonKey(name: 'image_url') required String imageUrl,
   }) = _Performance;
 
   factory Performance.fromJson(Map<String, dynamic> json) =>

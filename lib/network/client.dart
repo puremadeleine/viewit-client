@@ -66,6 +66,9 @@ class Client {
           return handler.next(options);
         },
         onResponse: (response, handler) async {
+          if (response.data is Map && response.data['value'] != null) {
+            response.data = response.data['value'];
+          }
           return handler.next(response);
         },
         onError: (error, handler) async {
@@ -113,7 +116,7 @@ class Client {
     String path, {
     Map<String, dynamic>? queryParameters,
     int maxRetries = 3,
-    bool requiresAuth = true,
+    bool requiresAuth = false,
   }) async {
     try {
       return await retry(

@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:viewith/feature/home/presentation/controller/home_controller.dart';
 import 'package:viewith/feature/home/presentation/widget/venue_item.dart';
 import 'package:viewith/ui/app_design.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../../data/response/venue.dart';
+
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(homeControllerProvider); // 상태 구독
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: state.when(
+        data: (venues) => _buildBody(venues),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
+      ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(List<Venue> venues) {
     return SafeArea(
       child: Padding(
         padding: AppDesign.spacing.horizontal24,

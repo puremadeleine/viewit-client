@@ -1,3 +1,4 @@
+import 'package:viewith/core/result/api_response_parser.dart';
 import 'package:viewith/core/result/base_error.dart';
 import 'package:viewith/core/result/result.dart';
 import 'package:viewith/feature/home/data/home_repository.dart';
@@ -11,7 +12,13 @@ class RemoteHomeRepository extends HomeRepository {
 
   @override
   Future<Result<List<Venue>, BaseError>> fetchVenues() async {
+    // try {
     final response = await _client.get('/v1/venues');
-    return response.data.toResult((json) => (json['venues'] as List<dynamic>).map((venue) => Venue.fromJson(venue)).toList());
+    final List<dynamic> venuesJson = response.data['venues'];
+    final venues = venuesJson.map((json) => Venue.fromJson(json)).toList();
+    return Success(venues);
+    // } catch (e) {
+    //   return Failure(e);
+    // }
   }
 }

@@ -5,8 +5,6 @@ import 'package:viewith/app/route/app_router.dart';
 import 'package:viewith/ui/app_design.dart';
 
 void main() {
-  runApp(const MyApp());
-
   WidgetsFlutterBinding.ensureInitialized();
   KakaoSdk.init(
     nativeAppKey: 'f19982018282c10ca37dccbd5268f139',

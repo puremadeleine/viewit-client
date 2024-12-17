@@ -7,18 +7,12 @@ part 'home_controller.g.dart';
 @riverpod
 class HomeController extends _$HomeController {
   @override
-  AsyncValue<List<Venue>> build() => const AsyncValue.data([]);
-
-  Future<void> fetchVenues() async {
-    state = const AsyncValue.loading();
+  FutureOr<List<Venue>> build() async {
     final result = await ref.read(homeRepositoryProvider).fetchVenues();
-    result.match(
-      onSuccess: (data) {
-        state = AsyncValue.data(data);
-      },
-      onFailure: (error) {
 
-      },
+    return result.match(
+      onSuccess: (venues) => venues,
+      onFailure: (error) => throw error,
     );
   }
 }

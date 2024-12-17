@@ -20,8 +20,11 @@ Venue _$VenueFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Venue {
+  @JsonKey(name: 'venue_id')
   int get venueId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'venue_name')
   String get venueName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'venue_location')
   String get venueLocation => throw _privateConstructorUsedError;
   List<Performance> get performances => throw _privateConstructorUsedError;
 
@@ -40,9 +43,9 @@ abstract class $VenueCopyWith<$Res> {
       _$VenueCopyWithImpl<$Res, Venue>;
   @useResult
   $Res call(
-      {int venueId,
-      String venueName,
-      String venueLocation,
+      {@JsonKey(name: 'venue_id') int venueId,
+      @JsonKey(name: 'venue_name') String venueName,
+      @JsonKey(name: 'venue_location') String venueLocation,
       List<Performance> performances});
 }
 
@@ -95,9 +98,9 @@ abstract class _$$VenueImplCopyWith<$Res> implements $VenueCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int venueId,
-      String venueName,
-      String venueLocation,
+      {@JsonKey(name: 'venue_id') int venueId,
+      @JsonKey(name: 'venue_name') String venueName,
+      @JsonKey(name: 'venue_location') String venueLocation,
       List<Performance> performances});
 }
 
@@ -144,9 +147,9 @@ class __$$VenueImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$VenueImpl implements _Venue {
   const _$VenueImpl(
-      {required this.venueId,
-      required this.venueName,
-      required this.venueLocation,
+      {@JsonKey(name: 'venue_id') required this.venueId,
+      @JsonKey(name: 'venue_name') required this.venueName,
+      @JsonKey(name: 'venue_location') required this.venueLocation,
       required final List<Performance> performances})
       : _performances = performances;
 
@@ -154,10 +157,13 @@ class _$VenueImpl implements _Venue {
       _$$VenueImplFromJson(json);
 
   @override
+  @JsonKey(name: 'venue_id')
   final int venueId;
   @override
+  @JsonKey(name: 'venue_name')
   final String venueName;
   @override
+  @JsonKey(name: 'venue_location')
   final String venueLocation;
   final List<Performance> _performances;
   @override
@@ -209,18 +215,21 @@ class _$VenueImpl implements _Venue {
 
 abstract class _Venue implements Venue {
   const factory _Venue(
-      {required final int venueId,
-      required final String venueName,
-      required final String venueLocation,
+      {@JsonKey(name: 'venue_id') required final int venueId,
+      @JsonKey(name: 'venue_name') required final String venueName,
+      @JsonKey(name: 'venue_location') required final String venueLocation,
       required final List<Performance> performances}) = _$VenueImpl;
 
   factory _Venue.fromJson(Map<String, dynamic> json) = _$VenueImpl.fromJson;
 
   @override
+  @JsonKey(name: 'venue_id')
   int get venueId;
   @override
+  @JsonKey(name: 'venue_name')
   String get venueName;
   @override
+  @JsonKey(name: 'venue_location')
   String get venueLocation;
   @override
   List<Performance> get performances;
@@ -240,6 +249,7 @@ Performance _$PerformanceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Performance {
   String get artist => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this Performance to a JSON map.
@@ -258,7 +268,7 @@ abstract class $PerformanceCopyWith<$Res> {
           Performance value, $Res Function(Performance) then) =
       _$PerformanceCopyWithImpl<$Res, Performance>;
   @useResult
-  $Res call({String artist, String imageUrl});
+  $Res call({String artist, @JsonKey(name: 'image_url') String imageUrl});
 }
 
 /// @nodoc
@@ -300,7 +310,7 @@ abstract class _$$PerformanceImplCopyWith<$Res>
       __$$PerformanceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String artist, String imageUrl});
+  $Res call({String artist, @JsonKey(name: 'image_url') String imageUrl});
 }
 
 /// @nodoc
@@ -335,7 +345,9 @@ class __$$PerformanceImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PerformanceImpl implements _Performance {
-  const _$PerformanceImpl({required this.artist, required this.imageUrl});
+  const _$PerformanceImpl(
+      {required this.artist,
+      @JsonKey(name: 'image_url') required this.imageUrl});
 
   factory _$PerformanceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PerformanceImplFromJson(json);
@@ -343,6 +355,7 @@ class _$PerformanceImpl implements _Performance {
   @override
   final String artist;
   @override
+  @JsonKey(name: 'image_url')
   final String imageUrl;
 
   @override
@@ -382,8 +395,9 @@ class _$PerformanceImpl implements _Performance {
 
 abstract class _Performance implements Performance {
   const factory _Performance(
-      {required final String artist,
-      required final String imageUrl}) = _$PerformanceImpl;
+          {required final String artist,
+          @JsonKey(name: 'image_url') required final String imageUrl}) =
+      _$PerformanceImpl;
 
   factory _Performance.fromJson(Map<String, dynamic> json) =
       _$PerformanceImpl.fromJson;
@@ -391,6 +405,7 @@ abstract class _Performance implements Performance {
   @override
   String get artist;
   @override
+  @JsonKey(name: 'image_url')
   String get imageUrl;
 
   /// Create a copy of Performance
