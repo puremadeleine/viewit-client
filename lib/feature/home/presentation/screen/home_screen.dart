@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/feature/home/presentation/controller/home_controller.dart';
 import 'package:viewith/feature/home/presentation/widget/venue_item.dart';
 import 'package:viewith/ui/app_design.dart';
@@ -35,7 +37,7 @@ class HomeScreen extends ConsumerWidget {
             _buildSubTitle('전체 공연장 목록'),
             AppDesign.spacing.h4,
             const Divider(height: 1),
-            _buildList(),
+            _buildList(venues),
           ],
         ),
       ),
@@ -56,18 +58,23 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildList() {
+  Widget _buildList(List<Venue> venues) {
     return Expanded(
       child: ListView.separated(
-        itemCount: 6,
+        itemCount: venues.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: AppDesign.spacing.vertical8,
-            child: VenueItem(
-              name: '잠실실내체육관',
-              address: '경기도 성남시 분당구 서현동',
-              images: [],
-              artists: ['아이브', '임영웅', 'NCT'],
+            child: GestureDetector(
+              onTap: () {
+                context.pushNamed(AppRoute.seatmap.name);
+              },
+              child: VenueItem(
+                name: venues[index].venueName,
+                address: venues[index].venueLocation,
+                images: [],
+                artists: venues[index].performances.map((e) => e.artist).toList(),
+              ),
             ),
           );
         },

@@ -12,13 +12,9 @@ class RemoteHomeRepository extends HomeRepository {
 
   @override
   Future<Result<List<Venue>, BaseError>> fetchVenues() async {
-    // try {
     final response = await _client.get('/v1/venues');
     final List<dynamic> venuesJson = response.data['venues'];
     final venues = venuesJson.map((json) => Venue.fromJson(json)).toList();
     return Success(venues);
-    // } catch (e) {
-    //   return Failure(e);
-    // }
   }
 }

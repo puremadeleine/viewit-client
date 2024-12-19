@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:retry/retry.dart';
+import 'package:viewith/app_environment.dart';
 import 'package:viewith/network/token_handler.dart';
 
 class Client {
   late Dio _dio;
   final TokenHandler _tokenHandler;
 
-  Client(this._tokenHandler, {String baseUrl = ''}) {
+  Client(this._tokenHandler, {String baseUrl = baseURL}) {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
