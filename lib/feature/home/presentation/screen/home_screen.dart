@@ -6,7 +6,7 @@ import 'package:viewith/feature/home/presentation/controller/home_controller.dar
 import 'package:viewith/feature/home/presentation/widget/venue_item.dart';
 import 'package:viewith/ui/app_design.dart';
 
-import '../../data/response/venue.dart';
+import '../../../../data/data/venue/response/venue.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -63,6 +63,7 @@ class HomeScreen extends ConsumerWidget {
       child: ListView.separated(
         itemCount: venues.length,
         itemBuilder: (context, index) {
+          final performances = venues[index].performances ?? [];
           return Padding(
             padding: AppDesign.spacing.vertical8,
             child: GestureDetector(
@@ -70,10 +71,10 @@ class HomeScreen extends ConsumerWidget {
                 context.pushNamed(AppRoute.seatmap.name);
               },
               child: VenueItem(
-                name: venues[index].venueName,
-                address: venues[index].venueLocation,
+                name: venues[index].name,
+                address: venues[index].location,
                 images: [],
-                artists: venues[index].performances.map((e) => e.artist).toList(),
+                artists: performances.map((e) => e.artist).toList(),
               ),
             ),
           );

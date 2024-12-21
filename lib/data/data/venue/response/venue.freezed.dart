@@ -21,12 +21,12 @@ Venue _$VenueFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Venue {
   @JsonKey(name: 'venue_id')
-  int get venueId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'venue_name')
-  String get venueName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'venue_location')
-  String get venueLocation => throw _privateConstructorUsedError;
-  List<Performance> get performances => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
+  List<Performance>? get performances => throw _privateConstructorUsedError;
 
   /// Serializes this Venue to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,10 +43,10 @@ abstract class $VenueCopyWith<$Res> {
       _$VenueCopyWithImpl<$Res, Venue>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'venue_id') int venueId,
-      @JsonKey(name: 'venue_name') String venueName,
-      @JsonKey(name: 'venue_location') String venueLocation,
-      List<Performance> performances});
+      {@JsonKey(name: 'venue_id') int id,
+      @JsonKey(name: 'venue_name') String name,
+      @JsonKey(name: 'venue_location') String location,
+      List<Performance>? performances});
 }
 
 /// @nodoc
@@ -64,28 +64,28 @@ class _$VenueCopyWithImpl<$Res, $Val extends Venue>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? venueId = null,
-    Object? venueName = null,
-    Object? venueLocation = null,
-    Object? performances = null,
+    Object? id = null,
+    Object? name = null,
+    Object? location = null,
+    Object? performances = freezed,
   }) {
     return _then(_value.copyWith(
-      venueId: null == venueId
-          ? _value.venueId
-          : venueId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      venueName: null == venueName
-          ? _value.venueName
-          : venueName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      venueLocation: null == venueLocation
-          ? _value.venueLocation
-          : venueLocation // ignore: cast_nullable_to_non_nullable
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
-      performances: null == performances
+      performances: freezed == performances
           ? _value.performances
           : performances // ignore: cast_nullable_to_non_nullable
-              as List<Performance>,
+              as List<Performance>?,
     ) as $Val);
   }
 }
@@ -98,10 +98,10 @@ abstract class _$$VenueImplCopyWith<$Res> implements $VenueCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'venue_id') int venueId,
-      @JsonKey(name: 'venue_name') String venueName,
-      @JsonKey(name: 'venue_location') String venueLocation,
-      List<Performance> performances});
+      {@JsonKey(name: 'venue_id') int id,
+      @JsonKey(name: 'venue_name') String name,
+      @JsonKey(name: 'venue_location') String location,
+      List<Performance>? performances});
 }
 
 /// @nodoc
@@ -117,28 +117,28 @@ class __$$VenueImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? venueId = null,
-    Object? venueName = null,
-    Object? venueLocation = null,
-    Object? performances = null,
+    Object? id = null,
+    Object? name = null,
+    Object? location = null,
+    Object? performances = freezed,
   }) {
     return _then(_$VenueImpl(
-      venueId: null == venueId
-          ? _value.venueId
-          : venueId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      venueName: null == venueName
-          ? _value.venueName
-          : venueName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      venueLocation: null == venueLocation
-          ? _value.venueLocation
-          : venueLocation // ignore: cast_nullable_to_non_nullable
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
-      performances: null == performances
+      performances: freezed == performances
           ? _value._performances
           : performances // ignore: cast_nullable_to_non_nullable
-              as List<Performance>,
+              as List<Performance>?,
     ));
   }
 }
@@ -147,10 +147,10 @@ class __$$VenueImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$VenueImpl implements _Venue {
   const _$VenueImpl(
-      {@JsonKey(name: 'venue_id') required this.venueId,
-      @JsonKey(name: 'venue_name') required this.venueName,
-      @JsonKey(name: 'venue_location') required this.venueLocation,
-      required final List<Performance> performances})
+      {@JsonKey(name: 'venue_id') required this.id,
+      @JsonKey(name: 'venue_name') required this.name,
+      @JsonKey(name: 'venue_location') required this.location,
+      final List<Performance>? performances})
       : _performances = performances;
 
   factory _$VenueImpl.fromJson(Map<String, dynamic> json) =>
@@ -158,24 +158,26 @@ class _$VenueImpl implements _Venue {
 
   @override
   @JsonKey(name: 'venue_id')
-  final int venueId;
+  final int id;
   @override
   @JsonKey(name: 'venue_name')
-  final String venueName;
+  final String name;
   @override
   @JsonKey(name: 'venue_location')
-  final String venueLocation;
-  final List<Performance> _performances;
+  final String location;
+  final List<Performance>? _performances;
   @override
-  List<Performance> get performances {
+  List<Performance>? get performances {
+    final value = _performances;
+    if (value == null) return null;
     if (_performances is EqualUnmodifiableListView) return _performances;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_performances);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'Venue(venueId: $venueId, venueName: $venueName, venueLocation: $venueLocation, performances: $performances)';
+    return 'Venue(id: $id, name: $name, location: $location, performances: $performances)';
   }
 
   @override
@@ -183,19 +185,18 @@ class _$VenueImpl implements _Venue {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$VenueImpl &&
-            (identical(other.venueId, venueId) || other.venueId == venueId) &&
-            (identical(other.venueName, venueName) ||
-                other.venueName == venueName) &&
-            (identical(other.venueLocation, venueLocation) ||
-                other.venueLocation == venueLocation) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             const DeepCollectionEquality()
                 .equals(other._performances, _performances));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, venueId, venueName,
-      venueLocation, const DeepCollectionEquality().hash(_performances));
+  int get hashCode => Object.hash(runtimeType, id, name, location,
+      const DeepCollectionEquality().hash(_performances));
 
   /// Create a copy of Venue
   /// with the given fields replaced by the non-null parameter values.
@@ -215,24 +216,24 @@ class _$VenueImpl implements _Venue {
 
 abstract class _Venue implements Venue {
   const factory _Venue(
-      {@JsonKey(name: 'venue_id') required final int venueId,
-      @JsonKey(name: 'venue_name') required final String venueName,
-      @JsonKey(name: 'venue_location') required final String venueLocation,
-      required final List<Performance> performances}) = _$VenueImpl;
+      {@JsonKey(name: 'venue_id') required final int id,
+      @JsonKey(name: 'venue_name') required final String name,
+      @JsonKey(name: 'venue_location') required final String location,
+      final List<Performance>? performances}) = _$VenueImpl;
 
   factory _Venue.fromJson(Map<String, dynamic> json) = _$VenueImpl.fromJson;
 
   @override
   @JsonKey(name: 'venue_id')
-  int get venueId;
+  int get id;
   @override
   @JsonKey(name: 'venue_name')
-  String get venueName;
+  String get name;
   @override
   @JsonKey(name: 'venue_location')
-  String get venueLocation;
+  String get location;
   @override
-  List<Performance> get performances;
+  List<Performance>? get performances;
 
   /// Create a copy of Venue
   /// with the given fields replaced by the non-null parameter values.

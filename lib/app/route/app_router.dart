@@ -5,7 +5,8 @@ import 'package:viewith/app/route/navigation_bar.dart';
 import 'package:viewith/feature/auth/presentation/screen/sign_in_screen.dart';
 import 'package:viewith/feature/home/presentation/screen/home_screen.dart';
 import 'package:viewith/feature/profile/presentation/screen/profile_screen.dart';
-import 'package:viewith/feature/writing/presentation/writing_venues_screen.dart';
+import 'package:viewith/feature/seatmap/presentation/screen/review_list_screen.dart';
+import 'package:viewith/feature/writing/search/presentation/writing_venues_screen.dart';
 
 final router = GoRouter(
   initialLocation: AppRoute.home.path,
@@ -41,5 +42,10 @@ final router = GoRouter(
       name: AppRoute.writingVenues.name,
       builder: (context, state) => const WritingVenuesScreen(),
     ),
+    GoRoute(
+      path: AppRoute.seatmap.path,
+      name: AppRoute.seatmap.name,
+      builder: (context, state) => const ReviewListScreen(),
+    )
   ],
 );

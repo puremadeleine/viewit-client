@@ -52,7 +52,7 @@ class _SeatMapState extends State<SeatMap> {
 
   double _svgWidth = 0;
   double _svgHeight = 0;
-  final double _initialScale = 1.5;
+  final double _initialScale = 1.0;
 
   final Color defaultColor = AppDesign.colors.gray100;
   final Color selectedColor = AppDesign.colors.gray900;

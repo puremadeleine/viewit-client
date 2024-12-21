@@ -208,10 +208,21 @@ class $AssetsImagesGen {
       ];
 }
 
+class $AssetsSeatmapGen {
+  const $AssetsSeatmapGen();
+
+  /// File path: assets/seatmap/kspo.svg
+  SvgGenImage get kspo => const SvgGenImage('assets/seatmap/kspo.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [kspo];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSeatmapGen seatmap = $AssetsSeatmapGen();
 }
 
 class AssetGenImage {

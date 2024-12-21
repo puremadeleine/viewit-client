@@ -7,19 +7,19 @@ part of 'venue.dart';
 // **************************************************************************
 
 _$VenueImpl _$$VenueImplFromJson(Map<String, dynamic> json) => _$VenueImpl(
-      venueId: (json['venue_id'] as num).toInt(),
-      venueName: json['venue_name'] as String,
-      venueLocation: json['venue_location'] as String,
-      performances: (json['performances'] as List<dynamic>)
-          .map((e) => Performance.fromJson(e as Map<String, dynamic>))
+      id: (json['venue_id'] as num).toInt(),
+      name: json['venue_name'] as String,
+      location: json['venue_location'] as String,
+      performances: (json['performances'] as List<dynamic>?)
+          ?.map((e) => Performance.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$VenueImplToJson(_$VenueImpl instance) =>
     <String, dynamic>{
-      'venue_id': instance.venueId,
-      'venue_name': instance.venueName,
-      'venue_location': instance.venueLocation,
+      'venue_id': instance.id,
+      'venue_name': instance.name,
+      'venue_location': instance.location,
       'performances': instance.performances,
     };
 

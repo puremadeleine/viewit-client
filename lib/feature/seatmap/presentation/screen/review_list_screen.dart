@@ -15,7 +15,7 @@ class ReviewListScreen extends StatefulWidget {
 }
 
 class _ReviewListScreenState extends State<ReviewListScreen> {
-  double _minChildSize = 0.0;
+  double _minChildSize = 0.5;
 
   @override
   void initState() {
@@ -35,6 +35,9 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     scaledHeight += 30;
     double availableHeight = screenSize.height - kToolbarHeight;
     _minChildSize = 1 - (scaledHeight / availableHeight);
+    setState(() {
+      
+    });
   }
 
   @override

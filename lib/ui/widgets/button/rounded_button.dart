@@ -28,7 +28,7 @@ class RoundedButton extends StatelessWidget {
         padding: AppDesign.spacing.all16,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(32), // 둥근 모서리
+          borderRadius: BorderRadius.circular(32),
         ),
         child: Stack(
           children: [
@@ -42,7 +42,7 @@ class RoundedButton extends StatelessWidget {
             Center(
               child: Text(
                 text,
-                style: AppDesign.typo.body1Bold(),
+                style: AppDesign.typo.body1Bold(color: textColor),
               ),
             ),
           ],
