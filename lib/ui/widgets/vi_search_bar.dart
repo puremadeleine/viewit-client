@@ -24,7 +24,6 @@ class _VISearchBarState extends State<VISearchBar> {
         hintStyle: AppDesign.typo.body1(
           color: AppDesign.colors.gray600,
         ),
-        suffixIcon: _buildClearButton(),
       ),
       onChanged: (text) => widget.onChanged?.call(text),
     );
@@ -33,7 +32,7 @@ class _VISearchBarState extends State<VISearchBar> {
   Widget? _buildClearButton() {
     final controller = widget.controller;
     if (controller != null && controller.text.isNotEmpty) {
-      return Assets.images.dellFillLight.svg(width: 36, height: 36);
+      return Assets.images.dellFillLight.svg(width: 12, height: 12);
     }
     return null;
   }

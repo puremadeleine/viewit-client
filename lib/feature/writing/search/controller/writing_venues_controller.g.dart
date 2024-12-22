@@ -22,7 +22,7 @@ final searchQueryProvider =
 
 typedef _$SearchQuery = AutoDisposeNotifier<String>;
 String _$writingVenuesControllerHash() =>
-    r'f73b13803107b2cc3c92e937a7817799a48b3d8b';
+    r'2c12a530574d1835536ff29c00f08639d09758e5';
 
 /// See also [WritingVenuesController].
 @ProviderFor(WritingVenuesController)

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(backgroundColor: AppDesign.colors.white),
         scaffoldBackgroundColor: AppDesign.colors.white,
         colorScheme: ThemeData().colorScheme.copyWith(primary: AppDesign.colors.gray900),
+        canvasColor: AppDesign.colors.white,
       ),
       routerConfig: router,
     );

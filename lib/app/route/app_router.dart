@@ -6,7 +6,11 @@ import 'package:viewith/feature/auth/presentation/screen/sign_in_screen.dart';
 import 'package:viewith/feature/home/presentation/screen/home_screen.dart';
 import 'package:viewith/feature/profile/presentation/screen/profile_screen.dart';
 import 'package:viewith/feature/seatmap/presentation/screen/review_list_screen.dart';
+import 'package:viewith/feature/writing/search/presentation/writing_performance_screen.dart';
+import 'package:viewith/feature/writing/search/presentation/writing_review_screen.dart';
 import 'package:viewith/feature/writing/search/presentation/writing_venues_screen.dart';
+
+import '../../feature/writing/search/presentation/writing_seat_info_screen.dart';
 
 final router = GoRouter(
   initialLocation: AppRoute.home.path,
@@ -38,10 +42,32 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-      path: AppRoute.writingVenues.path,
-      name: AppRoute.writingVenues.name,
-      builder: (context, state) => const WritingVenuesScreen(),
-    ),
+        path: AppRoute.writingVenues.path,
+        name: AppRoute.writingVenues.name,
+        builder: (context, state) => const WritingVenuesScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoute.writingSeatInfo.path,
+            name: AppRoute.writingSeatInfo.name,
+            builder: (context, state) => const WritingSeatInfoScreen(),
+            routes: [
+              GoRoute(
+                path: AppRoute.writingPerformance.path,
+                name: AppRoute.writingPerformance.name,
+                builder: (context, state) => const WritingPerformanceScreen(),
+                routes: [
+                  GoRoute(
+                    path: AppRoute.writingReview.path,
+                    name: AppRoute.writingReview.name,
+                    builder: (context, state) => const WritingReviewScreen(),
+                    routes: [
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ]),
     GoRoute(
       path: AppRoute.seatmap.path,
       name: AppRoute.seatmap.name,

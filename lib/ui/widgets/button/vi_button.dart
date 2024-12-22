@@ -4,7 +4,9 @@ import 'package:viewith/ui/widgets/button/rounded_button.dart';
 import 'package:viewith/ui/widgets/button/vi_button_type.dart';
 
 class VIButton extends StatelessWidget {
-  const VIButton({super.key, required this.type, required this.text});
+  const VIButton({super.key, required this.onTap, required this.type, required this.text});
+
+  final Function() onTap;
 
   final VIButtonType type;
 
@@ -29,7 +31,7 @@ class VIButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedButton(
-      onTap: () {},
+      onTap: () => onTap.call(),
       text: text,
       backgroundColor: _backgroundColor,
       textColor: _textColor,

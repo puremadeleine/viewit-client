@@ -199,29 +199,31 @@ class _SeatMapState extends State<SeatMap> {
             Offset position = _adjustRatio(details);
             _onSectionTap(position, scale);
           },
-          child: InteractiveViewer(
-            maxScale: 3,
-            transformationController: _transformationController,
-            child: Stack(
-              children: [
-                CustomPaint(
-                  key: const ValueKey('seatMapCustomPaint'),
-                  painter: PathPainter(
-                    sections: sections,
-                    colors: colors,
-                    defaultColor: defaultColor,
-                    scale: scale,
+          child: Center(
+            child: InteractiveViewer(
+              maxScale: 3,
+              transformationController: _transformationController,
+              child: Stack(
+                children: [
+                  CustomPaint(
+                    key: const ValueKey('seatMapCustomPaint'),
+                    painter: PathPainter(
+                      sections: sections,
+                      colors: colors,
+                      defaultColor: defaultColor,
+                      scale: scale,
+                    ),
+                    size: Size(parentWidth, parentHeight),
                   ),
-                  size: Size(parentWidth, parentHeight),
-                ),
-                CustomPaint(
-                  painter: StagePainter(
-                    sections: stages,
-                    defaultColor: defaultColor,
-                    scale: scale,
-                  ),
-                )
-              ],
+                  CustomPaint(
+                    painter: StagePainter(
+                      sections: stages,
+                      defaultColor: defaultColor,
+                      scale: scale,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

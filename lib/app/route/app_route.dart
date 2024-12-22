@@ -3,7 +3,10 @@ enum AppRoute {
   home,
   profile,
   seatmap,
-  writingVenues;
+  writingVenues,
+  writingSeatInfo,
+  writingPerformance,
+  writingReview;
 
   String get path => '/$name';
 }

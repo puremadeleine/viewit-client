@@ -45,7 +45,7 @@ class VenueItem extends StatelessWidget {
 
   Widget _buildAddress(String address) {
     return Text(
-      '📍$address',
+      address,
       style: AppDesign.typo.body4(),
     );
   }
@@ -54,8 +54,8 @@ class VenueItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('🎤 공연 예정인 아티스트', style: AppDesign.typo.h3()),
-        AppDesign.spacing.h2,
+        Text('공연 예정인 아티스트', style: AppDesign.typo.h3()),
+        AppDesign.spacing.h4,
         Row(
           children: artists
               .map(

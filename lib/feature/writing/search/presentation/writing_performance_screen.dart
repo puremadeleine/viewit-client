@@ -10,14 +10,14 @@ import 'package:viewith/ui/widgets/button/vi_button.dart';
 import 'package:viewith/ui/widgets/button/vi_button_type.dart';
 import 'package:viewith/ui/widgets/vi_search_bar.dart';
 
-class WritingVenuesScreen extends ConsumerStatefulWidget {
-  const WritingVenuesScreen({super.key});
+class WritingPerformanceScreen extends ConsumerStatefulWidget {
+  const WritingPerformanceScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _WritingVenuesState();
 }
 
-class _WritingVenuesState extends ConsumerState<WritingVenuesScreen> {
+class _WritingVenuesState extends ConsumerState<WritingPerformanceScreen> {
   final _textEditingController = TextEditingController();
 
   @override
@@ -31,8 +31,8 @@ class _WritingVenuesState extends ConsumerState<WritingVenuesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTitle('공연장을 입력해주세요'),
-            _buildSubTitle('어떤 공연장에서 공연을 관람하셨나요?'),
+            _buildTitle('공연명을 입력해주세요'),
+            _buildSubTitle('어떤 공연을 관람하셨나요?'),
             _buildSearchBar(ref),
             AppDesign.spacing.h12,
             _buildListView(searchResult),
@@ -55,7 +55,7 @@ class _WritingVenuesState extends ConsumerState<WritingVenuesScreen> {
   Widget _buildSearchBar(WidgetRef ref) {
     return VISearchBar(
       controller: _textEditingController,
-      hintText: '공연장 이름을 입력해주세요.',
+      hintText: '공연명을 입력해주세요.',
       onChanged: (text) {
         ref.read(writingVenuesControllerProvider.notifier).searchVenues(text);
       },
@@ -83,7 +83,7 @@ class _WritingVenuesState extends ConsumerState<WritingVenuesScreen> {
 
   Widget _buildNextButton() {
     return VIButton(
-      onTap: () => context.pushNamed(AppRoute.writingSeatInfo.name),
+      onTap: () => context.pushNamed(AppRoute.writingReview.name),
       type: VIButtonType.primary,
       text: '다음',
     );
