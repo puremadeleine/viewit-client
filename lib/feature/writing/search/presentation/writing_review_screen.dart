@@ -19,6 +19,8 @@ class WritingReviewScreen extends ConsumerStatefulWidget {
 }
 
 class _WritingVenuesState extends ConsumerState<WritingReviewScreen> {
+  final _textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +40,32 @@ class _WritingVenuesState extends ConsumerState<WritingReviewScreen> {
                 Expanded(child: _buildPhotoList()),
               ],
             ),
+            AppDesign.spacing.h12,
+            TextField(
+              controller: _textEditingController,
+              maxLines: 6,
+              maxLength: 300,
+              keyboardType: TextInputType.multiline,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1.5),
+                ),
+                hintText: '내용을 입력하세요',
+              ),
+              buildCounter: (
+                BuildContext context, {
+                required int currentLength,
+                required bool isFocused,
+                int? maxLength,
+              }) {
+                return null;
+              },
+            ),
+            AppDesign.spacing.h4,
+            _buildCounter(300),
             const Spacer(),
             _buildNextButton(),
           ],
@@ -64,7 +92,7 @@ class _WritingVenuesState extends ConsumerState<WritingReviewScreen> {
       },
     );
   }
-  
+
   Widget _buildPhotoList() {
     return const SelectedImagesRow();
   }
@@ -74,6 +102,34 @@ class _WritingVenuesState extends ConsumerState<WritingReviewScreen> {
       onTap: () => context.pushNamed(AppRoute.writingSeatInfo.name),
       type: VIButtonType.primary,
       text: '다음',
+    );
+  }
+
+  Widget _buildCounter(int maxLength) {
+    return ValueListenableBuilder(
+      valueListenable: _textEditingController,
+      builder: (context, TextEditingValue value, _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text('최소 20자 이상 입력해주세요.', style: AppDesign.typo.body2(color: AppDesign.colors.gray600)),
+            AppDesign.spacing.h2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  '${_textEditingController.text.length} ',
+                  style: AppDesign.typo.body2Bold(),
+                ),
+                Text(
+                  ' / $maxLength ',
+                  style: AppDesign.typo.body2(color: AppDesign.colors.gray600),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }
