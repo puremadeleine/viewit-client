@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/feature/writing/search/controller/writing_image_provider.dart';
 import 'package:viewith/feature/writing/search/presentation/widget/upload_photo_button.dart';
