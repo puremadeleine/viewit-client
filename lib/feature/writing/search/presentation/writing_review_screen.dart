@@ -98,7 +98,7 @@ class _WritingVenuesState extends ConsumerState<WritingReviewScreen> {
 
   Widget _buildNextButton() {
     return VIButton(
-      onTap: () => context.pushNamed(AppRoute.writingSeatInfo.name),
+      onTap: () => context.pushNamed(AppRoute.writingRating.name),
       type: VIButtonType.primary,
       text: '다음',
     );

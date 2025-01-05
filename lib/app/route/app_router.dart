@@ -7,6 +7,7 @@ import 'package:viewith/feature/home/presentation/screen/home_screen.dart';
 import 'package:viewith/feature/profile/presentation/screen/profile_screen.dart';
 import 'package:viewith/feature/seatmap/presentation/screen/review_list_screen.dart';
 import 'package:viewith/feature/writing/search/presentation/writing_performance_screen.dart';
+import 'package:viewith/feature/writing/search/presentation/writing_rating_screen.dart';
 import 'package:viewith/feature/writing/search/presentation/writing_review_screen.dart';
 import 'package:viewith/feature/writing/search/presentation/writing_venues_screen.dart';
 
@@ -61,6 +62,11 @@ final router = GoRouter(
                     name: AppRoute.writingReview.name,
                     builder: (context, state) => const WritingReviewScreen(),
                     routes: [
+                      GoRoute(
+                        path: AppRoute.writingRating.path,
+                        name: AppRoute.writingRating.name,
+                        builder: (context, state) => const WritingRatingScreen(),
+                      ),
                     ],
                   ),
                 ],

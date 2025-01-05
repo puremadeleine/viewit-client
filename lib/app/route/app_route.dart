@@ -6,7 +6,8 @@ enum AppRoute {
   writingVenues,
   writingSeatInfo,
   writingPerformance,
-  writingReview;
+  writingReview,
+  writingRating;
 
   String get path => '/$name';
 }
