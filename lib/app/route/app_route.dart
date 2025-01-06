@@ -3,6 +3,7 @@ enum AppRoute {
   home,
   profile,
   seatmap,
+  helpList,
   writingVenues,
   writingSeatInfo,
   writingPerformance,

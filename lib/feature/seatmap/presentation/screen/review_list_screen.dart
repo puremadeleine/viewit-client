@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:viewith/app/route/app_route.dart';
+import 'package:viewith/app/route/app_router.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
 
 import '../../../../core/utils/svg_util.dart';
+import '../../../../ui/gen/assets.gen.dart';
 import '../model/review.dart';
 import '../widget/review_item.dart';
 import '../widget/seat_map.dart';
@@ -35,25 +39,13 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     scaledHeight += 30;
     double availableHeight = screenSize.height - kToolbarHeight;
     _minChildSize = 1 - (scaledHeight / availableHeight);
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Text(
-            '잠실실내체육관',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: AppDesign.colors.white,
-      ),
+      appBar: _buildAppBar(),
       backgroundColor: AppDesign.colors.white,
       body: Stack(
         children: [
@@ -61,6 +53,31 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
           _buildReviews(),
         ],
       ),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.only(right: 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '잠실실내체육관',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            AppDesign.spacing.w4,
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(AppRoute.helpList.name);
+              },
+              child: Assets.images.infoFill.svg(),
+            ),
+          ],
+        ),
+      ),
+      centerTitle: true,
     );
   }
 
@@ -153,4 +170,3 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     );
   }
 }
-

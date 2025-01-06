@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/app/route/navigation_bar.dart';
 import 'package:viewith/feature/auth/presentation/screen/sign_in_screen.dart';
+import 'package:viewith/feature/help/presentation/help_list_screen.dart';
 import 'package:viewith/feature/home/presentation/screen/home_screen.dart';
 import 'package:viewith/feature/profile/presentation/screen/profile_screen.dart';
 import 'package:viewith/feature/seatmap/presentation/screen/review_list_screen.dart';
@@ -78,6 +79,13 @@ final router = GoRouter(
       path: AppRoute.seatmap.path,
       name: AppRoute.seatmap.name,
       builder: (context, state) => const ReviewListScreen(),
+      routes: [
+        GoRoute(
+          path: AppRoute.helpList.path,
+          name: AppRoute.helpList.name,
+          builder: (context, state) => const HelpListScreen(),
+        ),
+      ]
     )
   ],
 );
