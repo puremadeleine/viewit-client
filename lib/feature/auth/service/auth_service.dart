@@ -1,4 +1,4 @@
-import 'package:viewith/feature/auth/data/auth_repository.dart';
+import '../../../data/auth/auth_repository.dart';
 
 class AuthService {
   AuthService({

@@ -1,7 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:viewith/data/data/venue/venue_repository_providers.dart';
 
-import '../../../../data/data/venue/response/venue.dart';
+import '../../../../data/venue/response/venue.dart';
+import '../../../../data/venue/venue_repository_providers.dart';
+
 
 part 'writing_venues_controller.g.dart';
 

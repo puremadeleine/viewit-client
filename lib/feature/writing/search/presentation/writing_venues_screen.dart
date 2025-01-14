@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
-import 'package:viewith/data/data/venue/response/venue.dart';
 import 'package:viewith/feature/writing/search/controller/writing_venues_controller.dart';
 import 'package:viewith/feature/writing/search/presentation/search_list_item.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/button/vi_button.dart';
 import 'package:viewith/ui/widgets/button/vi_button_type.dart';
 import 'package:viewith/ui/widgets/vi_search_bar.dart';
+import '../../../../data/venue/response/venue.dart';
 
 class WritingVenuesScreen extends ConsumerStatefulWidget {
   const WritingVenuesScreen({super.key});

@@ -6,14 +6,15 @@ import 'package:viewith/feature/home/presentation/controller/home_controller.dar
 import 'package:viewith/feature/home/presentation/widget/venue_item.dart';
 import 'package:viewith/ui/app_design.dart';
 
-import '../../../../data/data/venue/response/venue.dart';
+import '../../../../data/venue/response/venue.dart';
+
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(homeControllerProvider); // 상태 구독
+    final state = ref.watch(homeControllerProvider);
 
     return Scaffold(
       body: state.when(

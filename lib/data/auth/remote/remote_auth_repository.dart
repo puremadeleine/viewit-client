@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
-import 'package:viewith/feature/auth/data/auth_repository.dart';
 import 'package:viewith/feature/auth/presentation/entity/User.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
+
+import '../auth_repository.dart';
 
 class RemoteAuthRepository extends AuthRepository {
   @override
