@@ -5,4 +5,6 @@ import 'package:viewith/data/help/response/help_list_item.dart';
 
 abstract interface class HelpRepository {
   Future<Result<PaginatedResponse<List<HelpListItem>>, BaseError>> fetchHelpList();
+
+  Future<Result<HelpListItem, BaseError>> fetchHelp(String id);
 }

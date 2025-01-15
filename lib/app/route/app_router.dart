@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/app/route/navigation_bar.dart';
 import 'package:viewith/feature/auth/presentation/screen/sign_in_screen.dart';
+import 'package:viewith/feature/help/presentation/help_detail_screen.dart';
 import 'package:viewith/feature/help/presentation/help_list_screen.dart';
 import 'package:viewith/feature/home/presentation/screen/home_screen.dart';
 import 'package:viewith/feature/profile/presentation/screen/profile_screen.dart';
@@ -84,6 +85,13 @@ final router = GoRouter(
           path: AppRoute.helpList.path,
           name: AppRoute.helpList.name,
           builder: (context, state) => const HelpListScreen(),
+          routes: [
+            GoRoute(
+                path: AppRoute.help.path,
+                name: AppRoute.help.name,
+                builder: (context, state) => const HelpDetailScreen(),
+            ),
+          ]
         ),
       ]
     )

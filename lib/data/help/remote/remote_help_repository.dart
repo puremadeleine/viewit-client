@@ -24,4 +24,12 @@ class RemoteHelpRepository implements HelpRepository {
       ),
     );
   }
+
+  @override
+  Future<Result<HelpListItem, BaseError>> fetchHelp(String id) async {
+    final response = await _client.get('/v1/help/$id');
+
+    return response.toResult<HelpListItem>((json) => HelpListItem.fromJson(json));
+  }
+
 }
