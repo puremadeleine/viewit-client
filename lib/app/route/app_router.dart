@@ -79,7 +79,7 @@ final router = GoRouter(
     GoRoute(
       path: AppRoute.seatmap.path,
       name: AppRoute.seatmap.name,
-      builder: (context, state) => const ReviewListScreen(),
+      builder: (context, state) => const ReviewListScreen(id: '4'),
       routes: [
         GoRoute(
           path: AppRoute.helpList.path,

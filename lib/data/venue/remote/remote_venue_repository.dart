@@ -32,4 +32,25 @@ class RemoteVenueRepository extends VenueRepository {
       Venue(id: 125, name: "장충체육관", location: "서울시 중구 동호로"),
     ]);
   }
+
+  @override
+  Future<Result<VenueDetail, BaseError>> fetchVenue(String id) async {
+    final response = await _client.get('/v1/venues/$id');
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<PaginatedResponse<List<Review>>, BaseError>> fetchReviews(ReviewParams params) async {
+    final response = await _client.get('/v1/reviews/list', queryParameters: {
+      'page': params.page,
+      'size': params.size,
+      'sort_type': params.sortType.name.toLowerCase(),
+      if (params.floor != null) 'floor': params.floor,
+      if (params.section != null) 'section': params.section,
+      if (params.seatRow != null) 'seat_row': params.seatRow,
+      'is_summary': params.isSummary,
+    });
+
+    return response.toPaginatedResult((json) => (json as List).map((e) => Review.fromJson(e)).toList());
+  }
 }
