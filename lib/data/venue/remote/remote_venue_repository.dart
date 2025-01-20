@@ -32,7 +32,7 @@ class RemoteVenueRepository extends VenueRepository {
   @override
   Future<Result<VenueDetail, BaseError>> fetchVenue(String id) async {
     final response = await _client.get('/v1/venues/$id');
-    throw UnimplementedError();
+    return response.toResult(fromJson: VenueDetail.fromJson);
   }
 
   @override

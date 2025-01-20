@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
-import 'package:viewith/app/route/app_router.dart';
 import 'package:viewith/feature/seatmap/presentation/controller/review_list_controller.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
@@ -15,8 +14,9 @@ import '../widget/seat_map.dart';
 
 class ReviewListScreen extends ConsumerStatefulWidget {
   final String id;
-  
-  const ReviewListScreen({super.key, required this.id});
+  final String venueName;
+
+  const ReviewListScreen({super.key, required this.id, required this.venueName});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ReviewListScreenState();
@@ -52,11 +52,15 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor: AppDesign.colors.white,
-      body: Stack(
-        children: [
-          _buildSeatMap(),
-          _buildReviews(),
-        ],
+      body: state.when(
+        data: (data) => Stack(
+          children: [
+            _buildSeatMap(),
+            _buildReviews(),
+          ],
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
       ),
     );
   }
@@ -69,7 +73,7 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '잠실실내체육관',
+              widget.venueName,
               style: TextStyle(fontWeight: FontWeight.w700),
             ),
             AppDesign.spacing.w4,

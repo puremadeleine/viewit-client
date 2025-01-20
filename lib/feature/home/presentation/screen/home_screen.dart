@@ -8,7 +8,6 @@ import 'package:viewith/ui/app_design.dart';
 
 import '../../../../data/venue/response/venue.dart';
 
-
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -69,7 +68,10 @@ class HomeScreen extends ConsumerWidget {
             padding: AppDesign.spacing.vertical8,
             child: GestureDetector(
               onTap: () {
-                context.pushNamed(AppRoute.seatmap.name);
+                context.push(
+                  '${AppRoute.seatmap.path}/${venues[index].id}',
+                  extra: {'name': venues[index].name}
+                );
               },
               child: VenueItem(
                 name: venues[index].name,

@@ -77,9 +77,14 @@ final router = GoRouter(
           ),
         ]),
     GoRoute(
-      path: AppRoute.seatmap.path,
+      path: '${AppRoute.seatmap.path}/:id',
       name: AppRoute.seatmap.name,
-      builder: (context, state) => const ReviewListScreen(id: '4'),
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        final extra = state.extra as Map<String, dynamic>;
+        final name = extra['name'] as String;
+        return  ReviewListScreen(id: id, venueName: name);
+      },
       routes: [
         GoRoute(
           path: AppRoute.helpList.path,
