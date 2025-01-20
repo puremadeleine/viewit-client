@@ -1,6 +1,10 @@
 import 'package:viewith/core/result/api_response_parser.dart';
 import 'package:viewith/core/result/base_error.dart';
+import 'package:viewith/core/result/paginated_response.dart';
 import 'package:viewith/core/result/result.dart';
+import 'package:viewith/data/venue/request/review_params.dart';
+import 'package:viewith/data/venue/response/review.dart';
+import 'package:viewith/data/venue/response/venue_detail.dart';
 import 'package:viewith/network/client.dart';
 
 import '../response/venue.dart';
@@ -14,9 +18,7 @@ class RemoteVenueRepository extends VenueRepository {
   @override
   Future<Result<List<Venue>, BaseError>> fetchVenues() async {
     final response = await _client.get('/v1/venues');
-    final result = response.toResult<List<Venue>>(
-      (json) => (json['venues'] as List).map((venue) => Venue.fromJson(venue as Map<String, dynamic>)).toList(),
-    );
+    final result = response.toListResult(fromJson: Venue.fromJson, key: 'venues');
     return result;
   }
 

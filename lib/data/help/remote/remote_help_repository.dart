@@ -16,12 +16,8 @@ class RemoteHelpRepository implements HelpRepository {
   Future<Result<PaginatedResponse<List<HelpListItem>>, BaseError>> fetchHelpList() async {
     final response = await _client.get('/v1/help/list');
 
-    return response.toResult<PaginatedResponse<List<HelpListItem>>>(
-      (data) => PaginatedResponse<List<HelpListItem>>
-          .fromJson(data, (json) => (json as List<dynamic>)
-          .map((item) => HelpListItem.fromJson(item as Map<String, dynamic>))
-          .toList(),
-      ),
+    return response.toPaginatedResult(
+      (json) => (json as List<dynamic>).map((item) => HelpListItem.fromJson(item as Map<String, dynamic>)).toList(),
     );
   }
 
@@ -29,7 +25,6 @@ class RemoteHelpRepository implements HelpRepository {
   Future<Result<HelpListItem, BaseError>> fetchHelp(String id) async {
     final response = await _client.get('/v1/help/$id');
 
-    return response.toResult<HelpListItem>((json) => HelpListItem.fromJson(json));
+    return response.toResult(fromJson: HelpListItem.fromJson);
   }
-
 }
