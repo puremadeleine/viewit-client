@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
 import 'package:viewith/app/route/app_router.dart';
+import 'package:viewith/feature/seatmap/presentation/controller/review_list_controller.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
 
@@ -11,14 +13,16 @@ import '../model/review.dart';
 import '../widget/review_item.dart';
 import '../widget/seat_map.dart';
 
-class ReviewListScreen extends StatefulWidget {
-  const ReviewListScreen({super.key});
+class ReviewListScreen extends ConsumerStatefulWidget {
+  final String id;
+  
+  const ReviewListScreen({super.key, required this.id});
 
   @override
-  State<ReviewListScreen> createState() => _ReviewListScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ReviewListScreenState();
 }
 
-class _ReviewListScreenState extends State<ReviewListScreen> {
+class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
   double _minChildSize = 0.5;
 
   @override
@@ -44,6 +48,7 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(reviewListControllerProvider(widget.id));
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor: AppDesign.colors.white,
@@ -85,8 +90,9 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: SeatMap(
-        seatmapName: 'assets/seatmap/kspo.svg',
-        stageName: 'assets/seatmap/kspo-t.svg',
+        seatmapSource: 'https://viewith-bucket.s3.ap-northeast-2.amazonaws.com/svg/kspo.svg',
+        stageSource: 'assets/seatmap/kspo-t.svg',
+        sourceType: SvgSource.url,
         mode: const SeatMapReadOnly(reviewCount: {'SEAT_17': 5}),
         onSectionSelected: (id) {
           print(id);

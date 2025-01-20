@@ -3,12 +3,15 @@ import 'package:path_parsing/path_parsing.dart';
 import 'package:viewith/resource/constant.dart';
 import 'package:viewith/ui/app_design.dart';
 import 'package:xml/xml.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../core/utils/svg_util.dart';
 import '../model/seat_section.dart';
 import 'painter/path_painter.dart';
 import 'painter/path_printer.dart';
 import 'painter/stage_painter.dart';
+
+enum SvgSource { asset, url }
 
 sealed class SeatMapState {
   const SeatMapState();
@@ -25,16 +28,18 @@ class SeatMapReadOnly extends SeatMapState {
 }
 
 class SeatMap extends StatefulWidget {
-  final String seatmapName;
-  final String? stageName;
+  final String seatmapSource;
+  final String? stageSource;
+  final SvgSource sourceType;
   final Map<String, int>? reviewCount;
   final SeatMapState mode;
   final Function(String) onSectionSelected;
 
   const SeatMap({
     super.key,
-    required this.seatmapName,
-    this.stageName,
+    required this.seatmapSource,
+    this.stageSource,
+    this.sourceType = SvgSource.asset,
     this.reviewCount,
     required this.mode,
     required this.onSectionSelected,
@@ -93,21 +98,53 @@ class _SeatMapState extends State<SeatMap> {
     });
   }
 
-  Future<XmlDocument> _loadSvg(String name) async {
-    final String svgString = await DefaultAssetBundle.of(context).loadString(name);
+  Future<String> _fetchSvgFromUrl(String url) async {
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+      throw Exception('Failed to load SVG from URL');
+    } catch (e) {
+      throw Exception('Error loading SVG: $e');
+    }
+  }
+
+  Future<XmlDocument> _loadSvg(String source) async {
+    String svgString;
+
+    if (widget.sourceType == SvgSource.asset) {
+      svgString = await DefaultAssetBundle.of(context).loadString(source);
+    } else {
+      svgString = await _fetchSvgFromUrl(source);
+    }
+
     final document = XmlDocument.parse(svgString);
 
     if (mounted) {
-      final size = await SvgUtil.getSize(context, name);
-      _svgWidth = size.width;
-      _svgHeight = size.height;
+      if (widget.sourceType == SvgSource.asset) {
+        final size = await SvgUtil.getSize(context, source);
+        _svgWidth = size.width;
+        _svgHeight = size.height;
+      } else {
+        // Parse SVG width and height from the document
+        final svg = document.findElements('svg').first;
+        final viewBox = svg.getAttribute('viewBox')?.split(' ');
+        if (viewBox != null && viewBox.length == 4) {
+          _svgWidth = double.parse(viewBox[2]);
+          _svgHeight = double.parse(viewBox[3]);
+        } else {
+          _svgWidth = double.parse(svg.getAttribute('width') ?? '0');
+          _svgHeight = double.parse(svg.getAttribute('height') ?? '0');
+        }
+      }
     }
 
     return document;
   }
 
   Future<void> _loadSeatMap() async {
-    final document = await _loadSvg(widget.seatmapName);
+    final document = await _loadSvg(widget.seatmapSource);
 
     setState(() {
       sections = [
@@ -127,9 +164,9 @@ class _SeatMapState extends State<SeatMap> {
   }
 
   Future<void> _loadStages() async {
-    final stageName = widget.stageName;
-    if (stageName == null) return;
-    final document = await _loadSvg(stageName);
+    final stageSource = widget.stageSource;
+    if (stageSource == null) return;
+    final document = await _loadSvg(stageSource);
 
     setState(() {
       stages = document.findAllElements(Strings.path).map((element) {
@@ -148,7 +185,8 @@ class _SeatMapState extends State<SeatMap> {
         for (var section in sections) {
           final count = reviewCount[section.id];
           if (count == null) continue;
-          if (count < 10) { // 갯수에 따라 조정 필요함 
+          if (count < 10) {
+            // 갯수에 따라 조정 필요함
             colors[section.id] = AppDesign.colors.gray50;
           }
         }

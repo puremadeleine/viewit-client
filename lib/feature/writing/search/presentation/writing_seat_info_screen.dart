@@ -48,7 +48,7 @@ class WritingSeatInfoScreen extends ConsumerWidget {
     return SizedBox(
       height: height,
       child: SeatMap(
-        seatmapName: 'assets/seatmap/kspo.svg',
+        seatmapSource: 'assets/seatmap/kspo.svg',
         mode: const SeatMapWritable(),
         onSectionSelected: (section) {},
       ),
