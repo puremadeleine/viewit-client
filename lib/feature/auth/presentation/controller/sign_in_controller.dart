@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:viewith/feature/auth/service/auth_service_provider.dart';
+import 'package:viewith/data/auth/auth_repository_providers.dart';
 
 part 'sign_in_controller.g.dart';
 
@@ -9,10 +9,10 @@ class SignInScreenController extends _$SignInScreenController {
   AsyncValue<void> build() => const AsyncValue.data(null);
 
   Future<void> signInWithKakao() async {
-    final authService = ref.read(authServiceProvider);
+    final authRepository = ref.read(authRepositoryProvider);
     state = await AsyncValue.guard(
       () {
-        return authService.signInWithKakao();
+        return authRepository.signInWithKakao();
       },
     );
   }

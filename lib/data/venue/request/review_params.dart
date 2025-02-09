@@ -8,7 +8,7 @@ class ReviewParams with _$ReviewParams {
     @Default(1) int page,
     @Default(10) int size,
     @Default(ReviewSortType.latest) ReviewSortType sortType,
-    String? floor,
+    @Default('1') String floor,
     String? section,
     int? seatRow,
     @Default(false) bool isSummary,

@@ -10,7 +10,7 @@ _$VenueDetailImpl _$$VenueDetailImplFromJson(Map<String, dynamic> json) =>
     _$VenueDetailImpl(
       sections:
           (json['sections'] as List<dynamic>).map((e) => e as String).toList(),
-      seatmapUrl: json['venue_url'] as String,
+      seatmapUrl: json['venue_url'] as String? ?? "",
       location: (json['stages'] as List<dynamic>)
           .map((e) => Stage.fromJson(e as Map<String, dynamic>))
           .toList(),

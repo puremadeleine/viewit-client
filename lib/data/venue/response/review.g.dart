@@ -7,7 +7,7 @@ part of 'review.dart';
 // **************************************************************************
 
 _$ReviewImpl _$$ReviewImplFromJson(Map<String, dynamic> json) => _$ReviewImpl(
-      reviewId: json['review_id'] as String,
+      reviewId: (json['review_id'] as num).toInt(),
       content: json['content'] as String,
       rating: (json['rating'] as num).toDouble(),
       createTime: (json['create_time'] as num).toInt(),
@@ -15,6 +15,7 @@ _$ReviewImpl _$$ReviewImplFromJson(Map<String, dynamic> json) => _$ReviewImpl(
           .map((e) => e as String)
           .toList(),
       userInfo: UserInfo.fromJson(json['user_info'] as Map<String, dynamic>),
+      seatInfo: SeatInfo.fromJson(json['seat_info'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) =>
@@ -25,11 +26,12 @@ Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) =>
       'create_time': instance.createTime,
       'image_list': instance.imageList,
       'user_info': instance.userInfo,
+      'seat_info': instance.seatInfo,
     };
 
 _$UserInfoImpl _$$UserInfoImplFromJson(Map<String, dynamic> json) =>
     _$UserInfoImpl(
-      userId: json['user_id'] as String,
+      userId: (json['user_id'] as num).toInt(),
       userNickname: json['user_nickname'] as String,
     );
 
@@ -37,4 +39,22 @@ Map<String, dynamic> _$$UserInfoImplToJson(_$UserInfoImpl instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
       'user_nickname': instance.userNickname,
+    };
+
+_$SeatInfoImpl _$$SeatInfoImplFromJson(Map<String, dynamic> json) =>
+    _$SeatInfoImpl(
+      floor: json['floor'] as String,
+      section: json['section'] as String,
+      row: (json['seat_row'] as num).toInt(),
+      column: (json['seat_column'] as num).toInt(),
+      block: json['block'] as String?,
+    );
+
+Map<String, dynamic> _$$SeatInfoImplToJson(_$SeatInfoImpl instance) =>
+    <String, dynamic>{
+      'floor': instance.floor,
+      'section': instance.section,
+      'seat_row': instance.row,
+      'seat_column': instance.column,
+      'block': instance.block,
     };

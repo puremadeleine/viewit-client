@@ -61,6 +61,7 @@ extension ApiResponseParser on Response {
         ),
       );
     } catch (e) {
+      print(e);
       return Failure(UnknownError());
     }
   }

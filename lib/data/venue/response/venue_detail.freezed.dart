@@ -136,9 +136,9 @@ class __$$VenueDetailImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$VenueDetailImpl implements _VenueDetail {
-  const _$VenueDetailImpl(
+  _$VenueDetailImpl(
       {@JsonKey(name: 'sections') required final List<String> sections,
-      @JsonKey(name: 'venue_url') required this.seatmapUrl,
+      @JsonKey(name: 'venue_url') this.seatmapUrl = "",
       @JsonKey(name: 'stages') required final List<Stage> location})
       : _sections = sections,
         _location = location;
@@ -208,9 +208,9 @@ class _$VenueDetailImpl implements _VenueDetail {
 }
 
 abstract class _VenueDetail implements VenueDetail {
-  const factory _VenueDetail(
+  factory _VenueDetail(
           {@JsonKey(name: 'sections') required final List<String> sections,
-          @JsonKey(name: 'venue_url') required final String seatmapUrl,
+          @JsonKey(name: 'venue_url') final String seatmapUrl,
           @JsonKey(name: 'stages') required final List<Stage> location}) =
       _$VenueDetailImpl;
 

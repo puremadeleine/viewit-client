@@ -7,8 +7,8 @@ import 'package:viewith/ui/app_design.dart';
 import 'package:viewith/ui/widgets/bottom_sheet.dart';
 
 import '../../../../core/utils/svg_util.dart';
+import '../../../../data/venue/response/review.dart';
 import '../../../../ui/gen/assets.gen.dart';
-import '../model/review.dart';
 import '../widget/review_item.dart';
 import '../widget/seat_map.dart';
 
@@ -56,7 +56,7 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
         data: (data) => Stack(
           children: [
             _buildSeatMap(),
-            _buildReviews(),
+            _buildReviews(data.reviews.value ?? []),
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -105,7 +105,7 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
     );
   }
 
-  Widget _buildReviews() {
+  Widget _buildReviews(List<Review> reviews) {
     return DraggableScrollableSheet(
       initialChildSize: _minChildSize,
       minChildSize: _minChildSize,
@@ -114,65 +114,16 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
         return VIBottomSheet<Review>(
           controller: scrollController,
           widget: widget,
-          items: [
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            ),
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            ),
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            ),
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            ),
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            ),
-            Review(
-              imageUrl: 'https://tkfile.yes24.com/upload2/PerfBlog/202409/20240927/20240927-51057.jpg',
-              seat: 'IVE - SHOW WHAT I HAVE',
-              concert: '2구역 5열 03번',
-              rating: 4.0,
-              text: '그냥 안보여요. 돈 버리고 왔습니다. 어쩌구 저쩌구 구저쩌구 저쩌구 저쩌구 저쩌구 저쩌구 저쩌구...',
-              date: '2일 전',
-            )
-          ],
+          items: reviews,
           onItemSelected: (item) {},
           itemBuilder: (context, review) {
             return ReviewItem(
-              imageUrl: review.imageUrl,
-              concert: review.seat,
-              seat: review.concert,
+              imageUrl: review.imageList[0],
+              concert: "공연명",
+              seat: review.seatName,
               rating: review.rating,
-              review: review.text,
-              date: review.date,
+              review: review.content,
+              date: review.createdAt,
             );
           },
         );

@@ -16,7 +16,7 @@ import 'package:viewith/feature/writing/search/presentation/writing_venues_scree
 import '../../feature/writing/search/presentation/writing_seat_info_screen.dart';
 
 final router = GoRouter(
-  initialLocation: AppRoute.home.path,
+  initialLocation: AppRoute.signIn.path,
   routes: [
     GoRoute(
       path: AppRoute.signIn.path,
@@ -83,22 +83,20 @@ final router = GoRouter(
         final id = state.pathParameters['id']!;
         final extra = state.extra as Map<String, dynamic>;
         final name = extra['name'] as String;
-        return  ReviewListScreen(id: id, venueName: name);
+        return ReviewListScreen(id: id, venueName: name);
       },
-      routes: [
-        GoRoute(
-          path: AppRoute.helpList.path,
-          name: AppRoute.helpList.name,
-          builder: (context, state) => const HelpListScreen(),
-          routes: [
-            GoRoute(
-                path: AppRoute.help.path,
-                name: AppRoute.help.name,
-                builder: (context, state) => const HelpDetailScreen(),
-            ),
-          ]
-        ),
-      ]
-    )
+    ),
+    GoRoute(
+        path: AppRoute.helpList.path,
+        name: AppRoute.helpList.name,
+        builder: (context, state) => const HelpListScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoute.help.path,
+            name: AppRoute.help.name,
+            builder: (context, state) => const HelpDetailScreen(),
+          ),
+        ]
+    ),
   ],
 );

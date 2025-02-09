@@ -19,7 +19,7 @@ mixin _$ReviewParams {
   int get page => throw _privateConstructorUsedError;
   int get size => throw _privateConstructorUsedError;
   ReviewSortType get sortType => throw _privateConstructorUsedError;
-  String? get floor => throw _privateConstructorUsedError;
+  String get floor => throw _privateConstructorUsedError;
   String? get section => throw _privateConstructorUsedError;
   int? get seatRow => throw _privateConstructorUsedError;
   bool get isSummary => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $ReviewParamsCopyWith<$Res> {
       {int page,
       int size,
       ReviewSortType sortType,
-      String? floor,
+      String floor,
       String? section,
       int? seatRow,
       bool isSummary});
@@ -65,7 +65,7 @@ class _$ReviewParamsCopyWithImpl<$Res, $Val extends ReviewParams>
     Object? page = null,
     Object? size = null,
     Object? sortType = null,
-    Object? floor = freezed,
+    Object? floor = null,
     Object? section = freezed,
     Object? seatRow = freezed,
     Object? isSummary = null,
@@ -83,10 +83,10 @@ class _$ReviewParamsCopyWithImpl<$Res, $Val extends ReviewParams>
           ? _value.sortType
           : sortType // ignore: cast_nullable_to_non_nullable
               as ReviewSortType,
-      floor: freezed == floor
+      floor: null == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       section: freezed == section
           ? _value.section
           : section // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$ReviewParamsImplCopyWith<$Res>
       {int page,
       int size,
       ReviewSortType sortType,
-      String? floor,
+      String floor,
       String? section,
       int? seatRow,
       bool isSummary});
@@ -137,7 +137,7 @@ class __$$ReviewParamsImplCopyWithImpl<$Res>
     Object? page = null,
     Object? size = null,
     Object? sortType = null,
-    Object? floor = freezed,
+    Object? floor = null,
     Object? section = freezed,
     Object? seatRow = freezed,
     Object? isSummary = null,
@@ -155,10 +155,10 @@ class __$$ReviewParamsImplCopyWithImpl<$Res>
           ? _value.sortType
           : sortType // ignore: cast_nullable_to_non_nullable
               as ReviewSortType,
-      floor: freezed == floor
+      floor: null == floor
           ? _value.floor
           : floor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       section: freezed == section
           ? _value.section
           : section // ignore: cast_nullable_to_non_nullable
@@ -182,7 +182,7 @@ class _$ReviewParamsImpl implements _ReviewParams {
       {this.page = 1,
       this.size = 10,
       this.sortType = ReviewSortType.latest,
-      this.floor,
+      this.floor = '1',
       this.section,
       this.seatRow,
       this.isSummary = false});
@@ -197,7 +197,8 @@ class _$ReviewParamsImpl implements _ReviewParams {
   @JsonKey()
   final ReviewSortType sortType;
   @override
-  final String? floor;
+  @JsonKey()
+  final String floor;
   @override
   final String? section;
   @override
@@ -245,7 +246,7 @@ abstract class _ReviewParams implements ReviewParams {
       {final int page,
       final int size,
       final ReviewSortType sortType,
-      final String? floor,
+      final String floor,
       final String? section,
       final int? seatRow,
       final bool isSummary}) = _$ReviewParamsImpl;
@@ -257,7 +258,7 @@ abstract class _ReviewParams implements ReviewParams {
   @override
   ReviewSortType get sortType;
   @override
-  String? get floor;
+  String get floor;
   @override
   String? get section;
   @override

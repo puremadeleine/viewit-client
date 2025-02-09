@@ -6,7 +6,7 @@ part of 'help_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$helpControllerHash() => r'dd1494e4ef77c74a8bf08002b9c818fbcad15c32';
+String _$helpControllerHash() => r'97fb98906c1637ef3f46297d42989d2103d9816e';
 
 /// See also [HelpController].
 @ProviderFor(HelpController)
