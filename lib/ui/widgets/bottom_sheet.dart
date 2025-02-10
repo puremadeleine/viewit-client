@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:viewith/ui/app_design.dart';
+import 'package:viewith/ui/foundation/spacing.dart';
 
 class VIBottomSheet<T> extends StatelessWidget {
   final ScrollController controller;
@@ -36,7 +37,11 @@ class VIBottomSheet<T> extends StatelessWidget {
         ],
       ),
       child: Column(
-        children: [if (titleBuilder != null) titleBuilder!(context), _buildListView()],
+        children: [
+          if (titleBuilder != null) titleBuilder!(context),
+          if (titleBuilder != null) AppDesign.spacing.h24,
+          _buildListView(),
+        ],
       ),
     );
   }
@@ -54,7 +59,9 @@ class VIBottomSheet<T> extends StatelessWidget {
             child: itemBuilder(context, items[index]),
           );
         },
-        separatorBuilder: (context, index) => const SizedBox(height: 20,),
+        separatorBuilder: (context, index) => const SizedBox(
+          height: 20,
+        ),
       ),
     );
   }
