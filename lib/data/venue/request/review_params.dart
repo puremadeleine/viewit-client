@@ -21,5 +21,16 @@ enum ReviewSortType {
   @JsonValue('LATEST')
   latest,
   @JsonValue('RATING')
-  rating,
+  rating;
+
+  String get name {
+  switch (this) {
+    case ReviewSortType.defaultSort:
+      return "기본순";
+    case ReviewSortType.latest:
+      return "최신순";
+    case ReviewSortType.rating:
+      return "별점순";
+  }
+}
 }

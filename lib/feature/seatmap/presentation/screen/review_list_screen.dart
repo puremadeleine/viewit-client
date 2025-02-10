@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:viewith/app/route/app_route.dart';
+import 'package:viewith/data/venue/request/review_params.dart';
 import 'package:viewith/feature/seatmap/presentation/controller/review_list_controller.dart';
 import 'package:viewith/feature/seatmap/presentation/controller/state/review_list_state.dart';
 import 'package:viewith/ui/app_design.dart';
@@ -56,10 +57,7 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
       backgroundColor: AppDesign.colors.white,
       body: state.when(
         data: (data) => Stack(
-          children: [
-            _buildSeatMap(),
-            _buildBottomSheet(state)
-          ],
+          children: [_buildSeatMap(), _buildBottomSheet(state)],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error: $err')),
@@ -186,25 +184,54 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
       ),
       padding: const EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: _closeFilterMode
-              ),
+              IconButton(icon: Icon(Icons.arrow_back), onPressed: _closeFilterMode),
               Text("필터 설정", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(width: 48),
             ],
           ),
-          Expanded(
-            child: Center(
-              child: Text("필터 옵션을 추가하세요"),
-            ),
-          ),
+          _buildSortOptions(),
         ],
       ),
+    );
+  }
+
+  Widget _buildSortOptions() {
+    final sortOption = ref.watch(reviewListControllerProvider(widget.id).select((state) => state.value?.sortType));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("정렬", style: AppDesign.typo.h2()),
+        AppDesign.spacing.h8,
+        Container(
+          height: 1.0,
+          color: AppDesign.colors.gray200,
+        ),
+        AppDesign.spacing.h8,
+        Wrap(
+          spacing: 10,
+          children: ReviewSortType.values.map((option) {
+            final color = option == sortOption ? AppDesign.colors.white : AppDesign.colors.gray900;
+            return ChoiceChip(
+              label: Text(option.name, style: AppDesign.typo.body2(color: color)),
+              selected: option == sortOption,
+              selectedColor: AppDesign.colors.gray900,
+              checkmarkColor: color,
+              onSelected: (selected) {
+                if (selected) {
+                  ref.read(reviewListControllerProvider(widget.id).notifier).setSortOption(option);
+                }
+              },
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 
@@ -221,8 +248,6 @@ class _ReviewListScreenState extends ConsumerState<ReviewListScreen> {
       _isFilterMode = false;
     });
 
-    Future.delayed(Duration(milliseconds: 100), () {
-
-    });
+    Future.delayed(Duration(milliseconds: 100), () {});
   }
 }

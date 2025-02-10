@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ReviewListState {
   AsyncValue<VenueDetail> get seatInfo => throw _privateConstructorUsedError;
   AsyncValue<List<Review>> get reviews => throw _privateConstructorUsedError;
+  ReviewSortType get sortType => throw _privateConstructorUsedError;
   String? get selectedSection => throw _privateConstructorUsedError;
 
   /// Create a copy of ReviewListState
@@ -36,6 +37,7 @@ abstract class $ReviewListStateCopyWith<$Res> {
   $Res call(
       {AsyncValue<VenueDetail> seatInfo,
       AsyncValue<List<Review>> reviews,
+      ReviewSortType sortType,
       String? selectedSection});
 }
 
@@ -56,6 +58,7 @@ class _$ReviewListStateCopyWithImpl<$Res, $Val extends ReviewListState>
   $Res call({
     Object? seatInfo = null,
     Object? reviews = null,
+    Object? sortType = null,
     Object? selectedSection = freezed,
   }) {
     return _then(_value.copyWith(
@@ -67,6 +70,10 @@ class _$ReviewListStateCopyWithImpl<$Res, $Val extends ReviewListState>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Review>>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as ReviewSortType,
       selectedSection: freezed == selectedSection
           ? _value.selectedSection
           : selectedSection // ignore: cast_nullable_to_non_nullable
@@ -86,6 +93,7 @@ abstract class _$$ReviewListStateImplCopyWith<$Res>
   $Res call(
       {AsyncValue<VenueDetail> seatInfo,
       AsyncValue<List<Review>> reviews,
+      ReviewSortType sortType,
       String? selectedSection});
 }
 
@@ -104,6 +112,7 @@ class __$$ReviewListStateImplCopyWithImpl<$Res>
   $Res call({
     Object? seatInfo = null,
     Object? reviews = null,
+    Object? sortType = null,
     Object? selectedSection = freezed,
   }) {
     return _then(_$ReviewListStateImpl(
@@ -115,6 +124,10 @@ class __$$ReviewListStateImplCopyWithImpl<$Res>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as AsyncValue<List<Review>>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as ReviewSortType,
       selectedSection: freezed == selectedSection
           ? _value.selectedSection
           : selectedSection // ignore: cast_nullable_to_non_nullable
@@ -127,18 +140,24 @@ class __$$ReviewListStateImplCopyWithImpl<$Res>
 
 class _$ReviewListStateImpl implements _ReviewListState {
   _$ReviewListStateImpl(
-      {required this.seatInfo, required this.reviews, this.selectedSection});
+      {required this.seatInfo,
+      required this.reviews,
+      this.sortType = ReviewSortType.defaultSort,
+      this.selectedSection});
 
   @override
   final AsyncValue<VenueDetail> seatInfo;
   @override
   final AsyncValue<List<Review>> reviews;
   @override
+  @JsonKey()
+  final ReviewSortType sortType;
+  @override
   final String? selectedSection;
 
   @override
   String toString() {
-    return 'ReviewListState(seatInfo: $seatInfo, reviews: $reviews, selectedSection: $selectedSection)';
+    return 'ReviewListState(seatInfo: $seatInfo, reviews: $reviews, sortType: $sortType, selectedSection: $selectedSection)';
   }
 
   @override
@@ -149,13 +168,15 @@ class _$ReviewListStateImpl implements _ReviewListState {
             (identical(other.seatInfo, seatInfo) ||
                 other.seatInfo == seatInfo) &&
             (identical(other.reviews, reviews) || other.reviews == reviews) &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType) &&
             (identical(other.selectedSection, selectedSection) ||
                 other.selectedSection == selectedSection));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, seatInfo, reviews, selectedSection);
+      Object.hash(runtimeType, seatInfo, reviews, sortType, selectedSection);
 
   /// Create a copy of ReviewListState
   /// with the given fields replaced by the non-null parameter values.
@@ -171,12 +192,15 @@ abstract class _ReviewListState implements ReviewListState {
   factory _ReviewListState(
       {required final AsyncValue<VenueDetail> seatInfo,
       required final AsyncValue<List<Review>> reviews,
+      final ReviewSortType sortType,
       final String? selectedSection}) = _$ReviewListStateImpl;
 
   @override
   AsyncValue<VenueDetail> get seatInfo;
   @override
   AsyncValue<List<Review>> get reviews;
+  @override
+  ReviewSortType get sortType;
   @override
   String? get selectedSection;
 

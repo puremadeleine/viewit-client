@@ -29,4 +29,12 @@ class ReviewListController extends _$ReviewListController {
       onFailure: (error) => throw error,
     );
   }
+
+  void setSortOption(ReviewSortType option) {
+    final currentState = state.value;
+    if (currentState == null) return;
+    final newState = currentState.copyWith(sortType: option);
+    state = AsyncData(newState);
+    // _sortReviews();
+  }
 }
