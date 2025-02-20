@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viewith/ui/app_design.dart';
 
 class ReviewItem extends StatelessWidget {
   final String imageUrl;
@@ -26,41 +27,26 @@ class ReviewItem extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 2,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                  height: 150,
-                  width: 150,
-                ),
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                height: 120,
+                width: 120,
               ),
             ),
             const SizedBox(width: 4),
             Expanded(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      concert,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                    Text(concert, style: AppDesign.typo.body3()),
                     const SizedBox(height: 2),
-                    Text(
-                      seat,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text(seat, style: AppDesign.typo.title1()),
                     const SizedBox(height: 4),
                     Row(
                       children: [
@@ -72,7 +58,7 @@ class ReviewItem extends StatelessWidget {
                                     ? Icons.star_half
                                     : Icons.star_border,
                             color: Colors.red,
-                            size: 20,
+                            size: 16,
                           );
                         }),
                         const SizedBox(width: 4),
